@@ -1,0 +1,29 @@
+{
+  "name": "brisk-ioc",
+  "version": "1.0.0",
+  "description": "fast light brisk ioc/di container on nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruixiaozi/brisk-ioc.git"
+  },
+  "keywords": [
+    "fast",
+    "light",
+    "brisk",
+    "ioc",
+    "di",
+    "node",
+    "js",
+    "spring"
+  ],
+  "author": "ruixiaozi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ruixiaozi/brisk-ioc/issues"
+  },
+  "homepage": "https://github.com/ruixiaozi/brisk-ioc#readme"
+}
