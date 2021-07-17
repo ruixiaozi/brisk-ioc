@@ -9,10 +9,10 @@ const Utils = require('./utils/Utils');
  * admin@ruixiaozi.com
  * https://github.com/ruixiaozi/brisk-ioc.git
  */
-const BriskIoC = {
-  ...Core,
-  ...CoreDecorator,
-  Utils
+class BriskIoC extends Core{
+  static CoreDecorator = CoreDecorator;
+  static Utils = Utils;
 }
+
 
 module.exports = exports = BriskIoC;
