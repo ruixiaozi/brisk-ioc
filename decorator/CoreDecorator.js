@@ -133,7 +133,7 @@ class CoreDecorator {
    * @returns
    */
   static Service(option) {
-    return Core.Bean(option);
+    return this.Bean(option);
   }
 }
 

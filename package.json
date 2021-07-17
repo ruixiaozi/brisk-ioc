@@ -1,10 +1,11 @@
 {
   "name": "brisk-ioc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "fast light brisk ioc/di container on nodejs",
   "main": "index.js",
   "scripts": {
-    "test": "node example/index.js"
+    "test": "node example/index.js",
+    "pub": "npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
