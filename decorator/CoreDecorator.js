@@ -10,7 +10,7 @@ class CoreDecorator {
   /**
    * 初始化生命周期 装饰器
    * @description 仅支持静态方法
-   * @param {Object} option 选项 {isAsync?=false 是否为异步方法, priority?=10 优先级（值小优先级越高）}
+   * @param {Object} option 选项 {priority?=10 优先级（值小优先级越高）}
    * @returns
    */
   static Init(option) {
@@ -24,8 +24,7 @@ class CoreDecorator {
       if (typeof descriptor.value == 'function') {
         Core.initList.push({
           fn: descriptor.value,
-          //默认为false
-          isAsync: option && option.isAsync,
+
           //默认优先级为10
           priority: (option && option.priority) ? option.priority : 10,
         })

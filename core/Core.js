@@ -34,9 +34,9 @@ class Core {
       try {
         if (fs.statSync(file).isDirectory()) {
           let subFiles = fs.readdirSync(file);
-          this.scanComponents(file, ...subFiles);
+          Core.scanComponents(file, ...subFiles);
         } else {
-          this.componentFileList.push(file);
+          Core.componentFileList.push(file);
         }
 
       } catch (error) {
@@ -45,56 +45,48 @@ class Core {
 
     }
 
-    return this;
+    return Core;
   }
 
-  /**
-   * 使用插件（开发中）
-   * @param {Class} plugin 插件
-   * @returns {Class} 类本身
-   */
-  static use(plugin) {
 
-    return this;
-  }
 
   /**
    * 异步初始化
    * @returns Promise
    */
   static initAsync() {
-    let that = this;
+
     return new Promise((resolve, reject) => {
       try {
         //先加载组件文件
-        this.componentFileList.forEach(file => {
+        Core.componentFileList.forEach(file => {
           console.log("scan component file:" + file);
           require(file);
         })
 
         //先对初始化生命周期的方法进行优先级排序
-        let InitFns = this.initList
+        let InitFns = Core.initList
           .sort((a, b) => {
             return a.priority - b.priority;
           });
         //链式执行初始化生命周期的方法
         Promise.each(InitFns, (item, index, length) => {
           return new Promise((res, rej) => {
-            if (item.isAsync) {
-              item.fn().then(() => {
+            let fnRes = item.fn();
+            if (typeof fnRes == "Promise") {
+              fnRes.then(() => {
                 res()
               }).catch(() => {
                 rej();
               })
             } else {
-              item.fn();
               res();
             }
 
           });
         }).then(() => {
           //返回类本身
-          resolve(that);
+          resolve(Core);
         }).catch(error => {
           reject(error);
         })
@@ -116,10 +108,10 @@ class Core {
    * @returns {Object} 组件实例（单例）
    */
   static getBean(key){
-    if(!this.container[key] && this.classes[key]){
-      this.container[key] = new this.classes[key]();
+    if(!Core.container[key] && Core.classes[key]){
+      Core.container[key] = new Core.classes[key]();
     }
-    return this.container[key];
+    return Core.container[key];
   }
 
 
