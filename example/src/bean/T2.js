@@ -1,6 +1,6 @@
-const {Bean,AutoWrite} = require('../../../index').CoreDecorator;
+const {Service,AutoWrite} = require('../../../index').CoreDecorator;
 
-@Bean()
+@Service()
 class T2{
 
   @AutoWrite()
