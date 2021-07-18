@@ -1,25 +1,15 @@
 require("@babel/polyfill");
 const BriskIoC = require('../../index');
+const BriskController = require('brisk-controller');
 
-class TestPlugin{
-  static pluginName = "TestPlugin";
-  static priority = 20;
-
-  static show(){
-    console.log("TestPlugin");
-  }
-}
 
 (async function () {
   await BriskIoC
-  .use(TestPlugin)
-  .scanComponents(__dirname,"./bean")
+  .use(BriskController,{port:2000})
+  .scanComponents(__dirname,"./bean","./controller")
   .initAsync();
 
-  BriskIoC.getBean("t2").showt2();
-
-  BriskIoC.TestPlugin.show();
-  console.log(BriskIoC);
+  BriskController.start();
 
 })();
 
