@@ -6,7 +6,7 @@ BriskIoC是一个快速、轻量级、轻快的IoC/DI容器，可以在nodejs中
 
 推荐(后台开发)搭配：
 
-brisk-ioc + [brisk-controller](https://github.com/ruixiaozi/brisk-controller) 
+brisk-ioc + [brisk-controller](https://github.com/ruixiaozi/brisk-controller) + [brisk-orm](https://github.com/ruixiaozi/brisk-orm)
 
 [![npm version](https://badge.fury.io/js/brisk-ioc.svg)](https://badge.fury.io/js/brisk-ioc)
 
@@ -149,6 +149,8 @@ Copyright (c) 2021 Ruixiaozi
 # Plugins
 
 + [brisk-controller 基于express的controller](https://github.com/ruixiaozi/brisk-controller)
+
++ [brisk-orm 支持mongodb的orm](https://github.com/ruixiaozi/brisk-orm)
 
   
 
