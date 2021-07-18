@@ -72,7 +72,8 @@ class Core {
         //链式执行初始化生命周期的方法
         Promise.each(InitFns, (item, index, length) => {
           return new Promise((res, rej) => {
-            let fnRes = item.fn();
+            //绑定Core到初始化方法的this,且参数也传入Core
+            let fnRes = item.fn.call(Core,Core);
             if (typeof fnRes == "Promise") {
               fnRes.then(() => {
                 res()

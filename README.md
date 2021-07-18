@@ -4,6 +4,10 @@ BriskIoC is a fast, light-weight, brisk IoC/DI container to work in nodejs. It r
 
 BriskIoC是一个快速、轻量级、轻快的IoC/DI容器，可以在nodejs中工作。它参考了Spring框架的装饰器，并改变了javascript中的一些用法。
 
+推荐(后台开发)搭配：
+
+brisk-ioc + [brisk-controller](https://github.com/ruixiaozi/brisk-controller) 
+
 [![npm version](https://badge.fury.io/js/brisk-ioc.svg)](https://badge.fury.io/js/brisk-ioc)
 
 [![NPM](https://nodei.co/npm/brisk-ioc.png)](https://nodei.co/npm/brisk-ioc/)
@@ -144,5 +148,7 @@ Copyright (c) 2021 Ruixiaozi
 
 # Plugins
 
-none
++ [brisk-controller 基于express的controller](https://github.com/ruixiaozi/brisk-controller)
+
+  
 
