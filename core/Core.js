@@ -74,7 +74,7 @@ class Core {
           return new Promise((res, rej) => {
             //绑定Core到初始化方法的this,且参数也传入Core
             let fnRes = item.fn.call(Core,Core);
-            if (typeof fnRes == "Promise") {
+            if (fnRes.constructor && fnRes.constructor.name == "Promise") {
               fnRes.then(() => {
                 res()
               }).catch(() => {
