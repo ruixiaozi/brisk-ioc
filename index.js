@@ -22,8 +22,10 @@ class BriskIoC extends Core {
    */
   static use(plugin, option) {
     if (!plugin || !plugin.install) {
+      //错误的格式
       console.log("plugins use err: error plugin class format");
     } else {
+      //调用安装方法，传入当前类，和参数
       plugin.install(BriskIoC, option);
     }
     return BriskIoC;

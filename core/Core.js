@@ -56,49 +56,29 @@ class Core {
    */
   static initAsync() {
 
-    return new Promise((resolve, reject) => {
-      try {
-        //先加载组件文件
-        Core.componentFileList.forEach(file => {
-          console.log("scan component file:" + file);
-          require(file);
-        })
+    //先加载组件文件
+    Core.componentFileList.forEach(file => {
+      console.log("scan component file:" + file);
+      require(file);
+    })
 
-        //先对初始化生命周期的方法进行优先级排序
-        let InitFns = Core.initList
-          .sort((a, b) => {
-            return a.priority - b.priority;
-          });
-        //链式执行初始化生命周期的方法
-        Promise.each(InitFns, (item, index, length) => {
-          return new Promise((res, rej) => {
-            //绑定Core到初始化方法的this,且参数也传入Core
-            let fnRes = item.fn.call(Core,Core);
-            if (fnRes && fnRes.constructor && fnRes.constructor.name == "Promise") {
-              fnRes.then(() => {
-                res()
-              }).catch(() => {
-                rej();
-              })
-            } else {
-              res();
-            }
+    //先对初始化生命周期的方法进行优先级排序
+    let InitFns = Core.initList
+      .sort((a, b) => {
+        return a.priority - b.priority;
+      });
 
-          });
-        }).then(() => {
-          //返回类本身
-          resolve(Core);
-        }).catch(error => {
-          reject(error);
-        })
-
-      } catch (error) {
-        reject(error)
-      }
-
+    //对初始化方法进行异步调用
+    return Promise.each(InitFns, (item, index, length) => {
+      let fnRes = item.fn.call(Core, Core);
+      return Promise.resolve(fnRes);
+    }).then(() => {
+      //返回类本身
+      return Core;
     }).catch(error => {
-      console.log("init error:"+error);
-    });
+      console.log("init error:" + error);
+      return error;
+    })
 
   }
 
@@ -108,8 +88,8 @@ class Core {
    * @param {String} key 名称
    * @returns {Object} 组件实例（单例）
    */
-  static getBean(key){
-    if(!Core.container[key] && Core.classes[key]){
+  static getBean(key) {
+    if (!Core.container[key] && Core.classes[key]) {
       Core.container[key] = new Core.classes[key]();
     }
     return Core.container[key];
