@@ -9,7 +9,7 @@ const Promise = require('bluebird');
  * @email admin@ruixiaozi.com
  * @version 1.0.0
  */
-class Core {
+class BriskIoC {
   //组件容器
   static container = {};
 

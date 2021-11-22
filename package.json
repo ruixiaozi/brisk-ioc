@@ -23,6 +23,7 @@
   ],
   "author": "ruixiaozi",
   "license": "MIT",
+  "typings": "types/index.d.ts",
   "bugs": {
     "url": "https://github.com/ruixiaozi/brisk-ioc/issues"
   },
