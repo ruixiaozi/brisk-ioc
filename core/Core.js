@@ -23,7 +23,7 @@ class Core {
   static initList = [];
 
   /**
-   * scanComponents 扫描组件
+   * scanComponents 扫描组件(遗弃) => scanPackage
    * @param {String} dir 绝对路径前缀
    * @param  {...any} files 目录/js文件 列表,按顺序依次扫描组件
    * @returns {Class} 类本身
@@ -48,6 +48,29 @@ class Core {
     return Core;
   }
 
+    /**
+   * scanPackage 扫描包
+   * @param  {...any} files 目录/js文件 列表,按顺序依次扫描组件 （绝对路径）
+   * @returns {Class} 类本身
+   */
+     static scanPackage(...files) {
+      for (let file of files) {
+        try {
+          if (fs.statSync(file).isDirectory()) {
+            let subFiles = fs.readdirSync(file);
+            Core.scanComponents(file, ...subFiles);
+          } else {
+            Core.componentFileList.push(file);
+          }
+
+        } catch (error) {
+          console.log("scanPackage error:" + error);
+        }
+
+      }
+
+      return Core;
+    }
 
 
   /**
