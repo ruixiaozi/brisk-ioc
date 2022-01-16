@@ -33,42 +33,18 @@ Copyright (c) 2021 Ruixiaozi
 
 2. Installation
 
-   First install Node.js
+   First install Node.js And ts-node
 
-   ```
-   $ npm i @babel/cli -D
-   $ npm i @babel/core -D
-   $ npm i @babel/plugin-proposal-class-properties -D
-   $ npm i @babel/plugin-transform-async-to-generator -D
-   $ npm i @babel/preset-env -D
-   $ npm i @babel/polyfill -S
-   ```
+   And create file :`tsconfig.json`
 
-   And create file :` .babelrc` and  `jsconfig.json`
-
-   ```
-   //.babelrc
-   {
-     "presets": ["@babel/preset-env"],
-     "assumptions": {
-       "setPublicClassFields": true
-     },
-     "plugins": [
-       ["@babel/plugin-proposal-decorators", { "legacy": true }],
-       ["@babel/plugin-proposal-class-properties"],
-       [
-         "@babel/plugin-transform-async-to-generator"
-       ]
-     ]
-   }
    
-   //jsconfig.json
+   //tsconfig.json
    {
      "compilerOptions": {
          "emitDecoratorMetadata": true,
          "experimentalDecorators": true,
    
-         "target": "es2017"
+         "target": "es2019"
      }
    }
    ```
@@ -78,7 +54,7 @@ Copyright (c) 2021 Ruixiaozi
    ```
    ...
    "scripts": {
-       "start": "babel src --out-dir dist --copy-files  && node dist/index.js"
+       "start": "ts-node src/index.ts"
      },
    ...
    ```
@@ -90,56 +66,8 @@ Copyright (c) 2021 Ruixiaozi
    ```
 
 3. Importing and Using ( Example )
-
-   ```
-   // 'src/bean/Test.js'
-   const {Bean} = require('brisk-ioc').CoreDecorator;
+  [参考Example](./example)
    
-   @Bean()
-   class Test{
-     show(){
-       console.log("test show");
-     }
-   }
-   
-   module.exports = exports = Test;
-   
-   ```
-
-   ```
-   // 'src/bean/T2.js'
-   const {Bean,AutoWrite} = require('brisk-ioc').CoreDecorator;
-   
-   @Bean()
-   class T2{
-   
-     @AutoWrite()
-     test = undefined;
-   
-     showt2(){
-       this.test.show();
-     }
-   
-   }
-   
-   ```
-
-   ```
-   // 'src/index.js'
-   require("@babel/polyfill");
-   const BriskIoC = require('brisk-ioc');
-   (async function () {
-     await BriskIoC
-     //扫描的组件 目录/文件 列表
-     .scanComponents(__dirname,"./bean")
-     //初始化容器
-     .initAsync();
-   
-     //获取
-     BriskIoC.getBean("t2").showt2();
-   
-   })();
-   ```
 
 # Support
 
