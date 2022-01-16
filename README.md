@@ -1,8 +1,8 @@
-# BriskIoC
+# BriskIoC 2
 
-BriskIoC is a fast, light-weight, brisk IoC/DI container to work in nodejs. It references the decorator of Spring framework and changes some usage in javascript.
+BriskIoC 2 is a fast, light-weight, brisk IoC/DI container to work in ts-node. It refers to the Spring framework and implements dependency injection through decorators and reflection.
 
-BriskIoC是一个快速、轻量级、轻快的IoC/DI容器，可以在nodejs中工作。它参考了Spring框架的装饰器，并改变了javascript中的一些用法。
+BriskIoC 2是一个快速、轻量级、轻快的IoC/DI容器，可以在ts-node中工作。它参考了Spring框架，通过装饰器与反射实现依赖注入。
 
 推荐(后台开发)搭配：
 
@@ -25,8 +25,7 @@ Copyright (c) 2021 Ruixiaozi
    ```
    src
     --- index.js
-   .babelrc
-   jsconfig.json
+   tsconfig.json
    package.json
    ```
 
@@ -34,7 +33,7 @@ Copyright (c) 2021 Ruixiaozi
 
 2. Installation
 
-   First install Node.js,@babel, 
+   First install Node.js
 
    ```
    $ npm i @babel/cli -D

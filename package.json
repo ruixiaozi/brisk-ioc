@@ -1,10 +1,12 @@
 {
   "name": "brisk-ioc",
-  "version": "1.0.11",
+  "version": "2.0.0",
   "description": "fast light brisk ioc/di container on nodejs",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "node example/index.js",
+    "compile": "tsc",
     "pub": "npm version patch && npm publish"
   },
   "repository": {
@@ -23,12 +25,16 @@
   ],
   "author": "ruixiaozi",
   "license": "MIT",
-  "typings": "types/index.d.ts",
   "bugs": {
     "url": "https://github.com/ruixiaozi/brisk-ioc/issues"
   },
   "homepage": "https://github.com/ruixiaozi/brisk-ioc#readme",
   "dependencies": {
     "bluebird": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.36",
+    "@types/node": "^16.11.10",
+    "tern": "^0.24.3"
   }
 }
