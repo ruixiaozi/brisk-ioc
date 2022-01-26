@@ -1,9 +1,8 @@
+import { DecoratorFactory } from "./DecoratorFactory";
 import { Core } from "../core/Core";
 import { InitFunc } from "../entity/InitFunc";
 import { BeanOption } from "../entity/options/BeanOption";
 import { InitOption } from "../entity/options/InitOption";
-
-import { Target, Class, DescOrNum, Key } from "../typeDeclare";
 
 /**
  * 初始化生命周期 装饰器工厂
@@ -11,29 +10,12 @@ import { Target, Class, DescOrNum, Key } from "../typeDeclare";
  * @returns
  */
 export function Init(option: InitOption): Function {
-  return function (
-    target: Target,
-    key?: Key,
-    descriptorOrIndex?: DescOrNum
-  ): void {
-    //只有一个参数，类装饰器
-    if (target && !key && !descriptorOrIndex) {
-    }
-    //只有两个参数，属性装饰器
-    else if (target && key && !descriptorOrIndex) {
-    }
-    //三个参数
-    else if (target && key && descriptorOrIndex) {
-      //第三个参数为数字，参数装饰器
-      if (typeof descriptorOrIndex === "number") {
-      }
-      //访问和访问器装饰器
-      else {
-        let initFunc = new InitFunc(descriptorOrIndex.value, option.priority);
-        Core.getInstance().initList.push(initFunc);
-      }
-    }
-  };
+  return new DecoratorFactory()
+    .setMethodCallback((target, key, descriptor) => {
+      const initFunc = new InitFunc(descriptor.value, option.priority);
+      Core.getInstance().initList.push(initFunc);
+    })
+    .getDecorator();
 }
 
 /**
@@ -42,38 +24,20 @@ export function Init(option: InitOption): Function {
  * @returns
  */
 export function Bean(option: BeanOption): Function {
-  return function (
-    target: Target,
-    key?: Key,
-    descriptorOrIndex?: DescOrNum
-  ): void {
-    //只有一个参数，类装饰器
-    if (target && !key && !descriptorOrIndex) {
-      let cTarget = target as Class;
-      var name =
+  return new DecoratorFactory()
+    .setClassCallback((target) => {
+      let name =
         option.name ||
-        cTarget.name.charAt(0).toLowerCase() + cTarget.name.slice(1);
+        target.name.charAt(0).toLowerCase() + target.name.slice(1);
       if (option.prefix) {
         name = option.prefix + name;
       }
 
       if (!Core.getInstance().classes.get(name)) {
-        Core.getInstance().classes.set(name, cTarget);
+        Core.getInstance().classes.set(name, target);
       }
-    }
-    //只有两个参数，属性装饰器
-    else if (target && key && !descriptorOrIndex) {
-    }
-    //三个参数
-    else if (target && key && descriptorOrIndex) {
-      //第三个参数为数字，参数装饰器
-      if (typeof descriptorOrIndex === "number") {
-      }
-      //访问和访问器装饰器
-      else {
-      }
-    }
-  };
+    })
+    .getDecorator();
 }
 
 /**
@@ -82,16 +46,8 @@ export function Bean(option: BeanOption): Function {
  * @returns
  */
 export function AutoWrite(option: BeanOption): Function {
-  return function (
-    target: Target,
-    key?: Key,
-    descriptorOrIndex?: DescOrNum
-  ): void {
-    //只有一个参数，类装饰器
-    if (target && !key && !descriptorOrIndex) {
-    }
-    //只有两个参数，属性装饰器
-    else if (target && key && !descriptorOrIndex) {
+  return new DecoratorFactory()
+    .setPropertyCallback((target, key) => {
       let realKey = key;
       //注入(构造方法中才会调用初始化，则创建对象的时候才实现注入)
       if (option.name) realKey = option.name;
@@ -113,17 +69,8 @@ export function AutoWrite(option: BeanOption): Function {
           return Core.getInstance().container.get(realKey);
         },
       });
-    }
-    //三个参数
-    else if (target && key && descriptorOrIndex) {
-      //第三个参数为数字，参数装饰器
-      if (typeof descriptorOrIndex === "number") {
-      }
-      //访问和访问器装饰器
-      else {
-      }
-    }
-  };
+    })
+    .getDecorator();
 }
 
 /**
