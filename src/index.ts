@@ -9,6 +9,7 @@ export * from './interface/IOption';
 export * from './interface/IPlugin';
 export * from './typeDeclare';
 export * from './decorator/CoreDecorator';
+export * from './decorator/DecoratorFactory';
 
 /**
  * Brisk-IoC
