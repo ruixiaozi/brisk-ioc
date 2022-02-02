@@ -5,11 +5,7 @@ export type ClassCallbackFunc = (target: Class) => void;
 // 属性装饰器回调方法类型
 export type PropertyCallbackFunc = (target: any, key: Key) => void;
 // 参数装饰器回调方法类型
-export type ParamCallbackFunc = (
-  target: any,
-  key: Key,
-  index: number
-) => void;
+export type ParamCallbackFunc = (target: any, key: Key, index: number) => void;
 // 方法、访问器装饰器回调方法类型
 export type MethodCallbackFunc = (
   target: any,
@@ -18,13 +14,13 @@ export type MethodCallbackFunc = (
 ) => void;
 
 /**
-* DecoratorFactory
-* @description 装饰器工厂类
-* @author ruixiaozi
-* @email admin@ruixiaozi.com
-* @date 2022年01月26日 00:47:06
-* @version 2.0.0
-*/
+ * DecoratorFactory
+ * @description 装饰器工厂类
+ * @author ruixiaozi
+ * @email admin@ruixiaozi.com
+ * @date 2022年01月26日 00:47:06
+ * @version 2.0.0
+ */
 export class DecoratorFactory {
   constructor(
     private _classCallback?: ClassCallbackFunc,

@@ -1,24 +1,22 @@
 import * as fs from "fs";
 import * as path from "path";
-import {Promise} from "bluebird";
-import {InitFunc} from "../entity/InitFunc";
+import { Promise } from "bluebird";
+import { InitFunc } from "../entity/InitFunc";
 import { Class, Key } from "../typeDeclare";
 
 /**
-* Core 核心功能
-* @description 单例
-* @author ruixiaozi
-* @email admin@ruixiaozi.com
-* @date 2022年01月16日 19:40:13
-* @version 2.0.0
-*/
+ * Core 核心功能
+ * @description 单例
+ * @author ruixiaozi
+ * @email admin@ruixiaozi.com
+ * @date 2022年01月16日 19:40:13
+ * @version 2.0.0
+ */
 export class Core {
-
   private static core?: Core;
 
-  static getInstance(): Core{
-    if(!Core.core)
-      Core.core = new Core();
+  static getInstance(): Core {
+    if (!Core.core) Core.core = new Core();
     return Core.core;
   }
 
@@ -61,13 +59,11 @@ export class Core {
     return this;
   }
 
-
-
   /**
    * 异步初始化
    * @returns Core
    */
-   public initAsync(): Promise<Core> {
+  public initAsync(): Promise<Core> {
     //先加载组件文件
     this.componentFileList.forEach((file) => {
       console.log("scan component file:" + file);
@@ -84,7 +80,6 @@ export class Core {
     //对初始化方法进行异步调用
     return Promise.each(InitFns, (item, index, length) => {
       //调用执行
-      //let fnRes = item.fn.call(that);
       let fnRes = item.fn();
       //使用Promise.resolve保证不论是Promise的方法还是常规方法都得到执行
       return Promise.resolve(fnRes);

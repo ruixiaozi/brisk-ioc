@@ -6,7 +6,6 @@
     "outDir": "lib",
     "strict": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
     "pretty": true
   },
   "include": ["src"]

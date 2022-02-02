@@ -6,7 +6,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "node example/index.js",
-    "compile": "tsc"
+    "compile": "tsc",
+    "upversion": "npm version patch"
   },
   "repository": {
     "type": "git",
