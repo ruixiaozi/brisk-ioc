@@ -1,10 +1,13 @@
 import { IPlugin } from './interface/IPlugin';
 import { Core } from "./core/Core";
-export * from './entity/options/BeanOption';
+import { IOption } from './interface/IOption';
+export * from './entity/option/BeanOption';
 export * from './entity/InitFunc';
-export * from './entity/options/InitOption';
+export * from './entity/option/InitOption';
 export * from './interface/IOption';
 export * from './interface/IPlugin';
+export * from './interface/option/IBeanOption';
+export * from './interface/option/IInitOption';
 export * from './typeDeclare';
 export * from './decorator/CoreDecorator';
 export * from './decorator/DecoratorFactory';
@@ -15,8 +18,8 @@ export * from './decorator/DecoratorFactory';
  * admin@ruixiaozi.com
  * https://github.com/ruixiaozi/brisk-ioc.git
  */
-export declare class BriskIoC {
-    static core: Core;
+declare class _BriskIoC {
+    core: Core;
     /**
      * 使用插件
      * @description 在所有Core下的方法之前使用
@@ -24,5 +27,6 @@ export declare class BriskIoC {
      * @param {Object} option 插件选项
      * @returns void
      */
-    static use(plugin: IPlugin, option?: any): void;
+    use(plugin: IPlugin, option?: IOption): _BriskIoC;
 }
+export declare const BriskIoC: _BriskIoC;

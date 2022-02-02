@@ -1,13 +1,19 @@
 import { IPlugin } from './interface/IPlugin';
 
 import {Core} from "./core/Core";
+import { IOption } from './interface/IOption';
 
-export * from './entity/options/BeanOption';
+export * from './entity/option/BeanOption';
 export * from './entity/InitFunc';
-export * from './entity/options/InitOption';
+export * from './entity/option/InitOption';
+
 export * from './interface/IOption';
 export * from './interface/IPlugin';
+export * from './interface/option/IBeanOption';
+export * from './interface/option/IInitOption';
+
 export * from './typeDeclare';
+
 export * from './decorator/CoreDecorator';
 export * from './decorator/DecoratorFactory';
 
@@ -18,9 +24,9 @@ export * from './decorator/DecoratorFactory';
  * admin@ruixiaozi.com
  * https://github.com/ruixiaozi/brisk-ioc.git
  */
-export class BriskIoC {
+class _BriskIoC {
 
-  static core: Core = Core.getInstance();
+  core: Core = Core.getInstance();
 
   /**
    * 使用插件
@@ -29,14 +35,16 @@ export class BriskIoC {
    * @param {Object} option 插件选项
    * @returns void
    */
-  static use(plugin: IPlugin, option?: any): void{
+  use(plugin: IPlugin, option?: IOption): _BriskIoC{
     if (!plugin || !plugin.install) {
       //错误的格式
       console.log("plugins use err: error plugin class format");
     } else {
       //调用安装方法，传入当前类，和参数
-      plugin.install(BriskIoC.core, option);
+      plugin.install(this.core, option);
     }
+    return this;
   }
 }
 
+export const BriskIoC = new _BriskIoC();

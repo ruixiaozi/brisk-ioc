@@ -1,4 +1,4 @@
-import {IOption} from "../../interface/IOption";
+import { IBeanOption } from './../../interface/option/IBeanOption';
 
 /**
 * BeanOption
@@ -8,7 +8,7 @@ import {IOption} from "../../interface/IOption";
 * @date 2022年01月16日 19:22:00
 * @version 2.0.0
 */
-export class BeanOption implements IOption{
+export class BeanOption implements IBeanOption{
   /**
    * 构造器
    * @param prefix 组件名称前缀

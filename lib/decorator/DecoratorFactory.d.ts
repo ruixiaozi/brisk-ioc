@@ -1,8 +1,8 @@
-import { Key, Class } from "./../typeDeclare";
-export declare type ClassCallbackFunc = (target: Class) => any;
-export declare type PropertyCallbackFunc = (target: object, key: Key) => any;
-export declare type ParamCallbackFunc = (target: object, key: Key, index: number) => any;
-export declare type MethodCallbackFunc = (target: object, key: Key, descriptor: PropertyDescriptor) => any;
+import { Key, Class, Decorator } from "./../typeDeclare";
+export declare type ClassCallbackFunc = (target: Class) => void;
+export declare type PropertyCallbackFunc = (target: any, key: Key) => void;
+export declare type ParamCallbackFunc = (target: any, key: Key, index: number) => void;
+export declare type MethodCallbackFunc = (target: any, key: Key, descriptor: PropertyDescriptor) => void;
 /**
 * DecoratorFactory
 * @description 装饰器工厂类
@@ -21,5 +21,5 @@ export declare class DecoratorFactory {
     setPropertyCallback(func: PropertyCallbackFunc): DecoratorFactory;
     setParamCallback(func: ParamCallbackFunc): DecoratorFactory;
     setMethodCallback(func: MethodCallbackFunc): DecoratorFactory;
-    getDecorator(): Function;
+    getDecorator(): Decorator;
 }

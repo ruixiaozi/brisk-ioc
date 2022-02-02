@@ -1,21 +1,21 @@
-import { Target, Key, Class, DescOrNum } from "./../typeDeclare";
+import { Target, Key, Class, DescOrNum, Decorator } from "./../typeDeclare";
 
 // 类装饰器回调方法类型
-export type ClassCallbackFunc = (target: Class) => any;
+export type ClassCallbackFunc = (target: Class) => void;
 // 属性装饰器回调方法类型
-export type PropertyCallbackFunc = (target: object, key: Key) => any;
+export type PropertyCallbackFunc = (target: any, key: Key) => void;
 // 参数装饰器回调方法类型
 export type ParamCallbackFunc = (
-  target: object,
+  target: any,
   key: Key,
   index: number
-) => any;
+) => void;
 // 方法、访问器装饰器回调方法类型
 export type MethodCallbackFunc = (
-  target: object,
+  target: any,
   key: Key,
   descriptor: PropertyDescriptor
-) => any;
+) => void;
 
 /**
 * DecoratorFactory
@@ -53,7 +53,7 @@ export class DecoratorFactory {
     return this;
   }
 
-  public getDecorator(): Function {
+  public getDecorator(): Decorator {
     return (target: Target, key?: Key, descriptorOrIndex?: DescOrNum) => {
       //只有一个参数，类装饰器
       if (target && !key && !descriptorOrIndex) {
@@ -63,12 +63,12 @@ export class DecoratorFactory {
       }
       //只有两个参数，属性装饰器
       else if (target && key && !descriptorOrIndex) {
-        const oTarget = target as object;
+        const oTarget = target as any;
         this._propertyCallback && this._propertyCallback(oTarget, key);
       }
       //三个参数
       else if (target && key && descriptorOrIndex) {
-        const oTarget = target as object;
+        const oTarget = target as any;
         //第三个参数为数字，参数装饰器
         if (typeof descriptorOrIndex === "number") {
           this._paramCallback &&

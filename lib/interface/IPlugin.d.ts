@@ -1,3 +1,4 @@
+import { IOption } from './IOption';
 import { Core } from './../core/Core';
 /**
 * IPlugin
@@ -8,5 +9,5 @@ import { Core } from './../core/Core';
 * @version 2.0.0
 */
 export interface IPlugin {
-    install(core: Core, option: any): void;
+    install(core: Core, option?: IOption): void;
 }

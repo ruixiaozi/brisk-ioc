@@ -84,7 +84,8 @@ export class Core {
     //对初始化方法进行异步调用
     return Promise.each(InitFns, (item, index, length) => {
       //调用执行
-      let fnRes = item.fn.call(that);
+      //let fnRes = item.fn.call(that);
+      let fnRes = item.fn();
       //使用Promise.resolve保证不论是Promise的方法还是常规方法都得到执行
       return Promise.resolve(fnRes);
     }).then(() => {
