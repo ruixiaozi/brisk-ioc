@@ -2,6 +2,9 @@ import { IPlugin } from "./interface/IPlugin";
 import { Core } from "./core/Core";
 import { IOption } from "./interface/IOption";
 
+// 核心
+export * from "./core/Core";
+
 // 导出实体
 export * from "./entity/option/BeanOption";
 export * from "./entity/InitFunc";
