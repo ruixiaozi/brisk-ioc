@@ -72,6 +72,8 @@ Copyright (c) 2021 Ruixiaozi
 # Support
 
 + bluebird
++ winston
++ winston-daily-rotate-file
 
 # Plugins
 
@@ -80,4 +82,9 @@ Copyright (c) 2021 Ruixiaozi
 + [brisk-orm 支持mongodb的orm](https://github.com/ruixiaozi/brisk-orm)
 
   
+# VSCode Extentions Support
+
++ EditorConfig for VS Code
++ eslint
++ commitlint
 

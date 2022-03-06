@@ -1,8 +1,10 @@
-import * as fs from "fs";
-import * as path from "path";
-import { Promise } from "bluebird";
-import { InitFunc } from "../entity/InitFunc";
-import { Class, Key } from "../typeDeclare";
+import { ILoggerOption } from './../interface/option/ILoggerOption';
+import { Logger } from './../logger/Logger';
+import * as fs from 'fs';
+import * as path from 'path';
+import { Promise } from 'bluebird';
+import { InitFunc } from '../entity/InitFunc';
+import { Class, Key } from '../typeDeclare';
 
 /**
  * Core 核心功能
@@ -13,27 +15,43 @@ import { Class, Key } from "../typeDeclare";
  * @version 2.0.0
  */
 export class Core {
+
   private static core?: Core;
 
   static getInstance(): Core {
-    if (!Core.core) Core.core = new Core();
+    if (!Core.core) {
+      Core.core = new Core();
+    }
     return Core.core;
   }
 
-  //组件实例容器
+  // 组件实例容器
   public container: Map<Key, object> = new Map<Key, object>();
 
-  //组件的类定义列表
+  // 组件的类定义列表
   public classes: Map<Key, { new (): object }> = new Map<
     Key,
-    { new (): object }
+    { new(): object }
   >();
 
-  //扫描的组件文件列表
+  // 扫描的组件文件列表
   public componentFileList: string[] = [];
 
-  //初始化生命 (@Init) 周期方法 列表
+  // 初始化生命 (@Init) 周期方法 列表
   public initList: InitFunc[] = [];
+
+  // 日志实例
+  public logger: Logger = Logger.getInstance();
+
+  /**
+   * 配置日志选项
+   * @param option 自定义日志选项
+   * @returns {Core} 类本身
+   */
+  public loggerConfig(option: ILoggerOption): Core {
+    this.logger = Logger.getInstance(option);
+    return this;
+  }
 
   /**
    * scanPackage 扫描包
@@ -46,13 +64,13 @@ export class Core {
       file = path.join(dir, file);
       try {
         if (fs.statSync(file).isDirectory()) {
-          let subFiles = fs.readdirSync(file);
+          const subFiles = fs.readdirSync(file);
           this.scanPackage(file, ...subFiles);
         } else {
           this.componentFileList.push(file);
         }
       } catch (error) {
-        console.log("scanPackage error:" + error);
+        this.logger.error(`scanPackage error:${error}`);
       }
     }
 
@@ -64,29 +82,24 @@ export class Core {
    * @returns Core
    */
   public initAsync(): Promise<Core> {
-    //先加载组件文件
+    // 先加载组件文件
     this.componentFileList.forEach((file) => {
-      console.log("scan component file:" + file);
+      this.logger.info(`scan component file:${file}`);
       require(file);
     });
 
-    //先对初始化生命周期的方法进行优先级排序
-    let InitFns = this.initList.sort((a, b) => {
-      return a.priority - b.priority;
-    });
+    // 先对初始化生命周期的方法进行优先级排序
+    const InitFns = this.initList.sort((fnA, fnB) => fnA.priority - fnB.priority);
 
-    let that = this;
+    const _that = this;
 
-    //对初始化方法进行异步调用
-    return Promise.each(InitFns, (item, index, length) => {
-      //调用执行
-      let fnRes = item.fn();
-      //使用Promise.resolve保证不论是Promise的方法还是常规方法都得到执行
+    // 对初始化方法进行异步调用
+    return Promise.each(InitFns, (item) => {
+      // 调用执行
+      const fnRes = item.fn();
+      // 使用Promise.resolve保证不论是Promise的方法还是常规方法都得到执行
       return Promise.resolve(fnRes);
-    }).then(() => {
-      //返回类本身
-      return that;
-    });
+    }).then(() => _that);
   }
 
   /**
@@ -94,28 +107,26 @@ export class Core {
    * @param {String} key 名称
    * @returns {Object} 组件实例（单例）
    */
-  public getBean(c: Class): any;
-  public getBean(key: string): any;
   public getBean(param: string | Class): any {
-    let key =
-      typeof param == "string"
-        ? param
-        : param.name.replace(param.name[0], param.name[0].toLowerCase());
+    const key = typeof param === 'string'
+      ? param
+      : param.name.replace(param.name[0], param.name[0].toLowerCase());
 
-    //如果没有实例，但是有类型，则创建一个单例
+    // 如果没有实例，但是有类型，则创建一个单例
     if (!this.container.has(key)) {
-      //如果收集到有对应的类型构造器
-      let constructor = this.classes.get(key);
+      // 如果收集到有对应的类型构造器
+      const constructor = this.classes.get(key);
       if (constructor) {
         this.container.set(key, new constructor());
-      }
-      //如果构造器不存在,且传入的类型
-      else if (typeof param != "string") {
+      } else if (typeof param !== 'string') {
+        // 如果构造器不存在,且传入的类型
+        const BeanClass = param;
         this.classes.set(key, param);
-        this.container.set(key, new param());
+        this.container.set(key, new BeanClass());
       }
     }
 
     return this.container.get(key);
   }
+
 }

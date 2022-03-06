@@ -1,4 +1,5 @@
-import { IOption } from "./../IOption";
+import { IOption } from './../IOption';
+
 /**
  * IBeanOption
  * @description 组件参数接口

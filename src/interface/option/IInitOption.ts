@@ -1,4 +1,5 @@
-import { IOption } from "./../IOption";
+import { IOption } from './../IOption';
+
 /**
  * IInitOption
  * @description 初始化方法选项接口

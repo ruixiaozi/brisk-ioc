@@ -1,4 +1,4 @@
-import { IInitOption } from "./../../interface/option/IInitOption";
+import { IInitOption } from './../../interface/option/IInitOption';
 
 /**
  * InitOption
@@ -9,9 +9,12 @@ import { IInitOption } from "./../../interface/option/IInitOption";
  * @version 2.0.0
  */
 export class InitOption implements IInitOption {
+
   /**
    * 构造方法
    * @param priority 优先级，默认值10，值越小优先级越高
    */
   constructor(public priority: number = 10) {}
+
 }
+

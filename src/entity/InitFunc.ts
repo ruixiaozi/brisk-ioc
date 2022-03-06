@@ -7,10 +7,12 @@
  * @version 2.0.0
  */
 export class InitFunc {
+
   /**
    * 构造函数
    * @param fn 方法本身
    * @param priority 优先级
    */
   constructor(public fn: Function, public priority: number) {}
+
 }

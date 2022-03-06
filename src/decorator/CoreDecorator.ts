@@ -1,10 +1,10 @@
-import { IBeanOption } from "./../interface/option/IBeanOption";
-import { IInitOption } from "./../interface/option/IInitOption";
-import { DecoratorFactory } from "./DecoratorFactory";
-import { Core } from "../core/Core";
-import { InitFunc } from "../entity/InitFunc";
-import { BeanOption } from "../entity/option/BeanOption";
-import { InitOption } from "../entity/option/InitOption";
+import { IBeanOption } from './../interface/option/IBeanOption';
+import { IInitOption } from './../interface/option/IInitOption';
+import { DecoratorFactory } from './DecoratorFactory';
+import { Core } from '../core/Core';
+import { InitFunc } from '../entity/InitFunc';
+import { BeanOption } from '../entity/option/BeanOption';
+import { InitOption } from '../entity/option/InitOption';
 
 /**
  * 初始化生命周期 装饰器工厂
@@ -12,10 +12,10 @@ import { InitOption } from "../entity/option/InitOption";
  * @returns
  */
 export function Init(option?: IInitOption): Function {
-  if (!option) option = new InitOption();
+  const initOption = option || new InitOption();
   return new DecoratorFactory()
     .setMethodCallback((target, key, descriptor) => {
-      const initFunc = new InitFunc(descriptor.value, option!.priority);
+      const initFunc = new InitFunc(descriptor.value, initOption.priority);
       Core.getInstance().initList.push(initFunc);
     })
     .getDecorator();
@@ -27,14 +27,12 @@ export function Init(option?: IInitOption): Function {
  * @returns
  */
 export function Bean(option?: IBeanOption): Function {
-  if (!option) option = new BeanOption();
+  const beanOption = option || new BeanOption();
   return new DecoratorFactory()
     .setClassCallback((target) => {
-      let name =
-        option!.name ||
-        target.name.charAt(0).toLowerCase() + target.name.slice(1);
-      if (option!.prefix) {
-        name = option!.prefix + name;
+      let name = beanOption!.name || (target.name.charAt(0).toLowerCase() + target.name.slice(1));
+      if (beanOption!.prefix) {
+        name = beanOption!.prefix + name;
       }
 
       if (!Core.getInstance().classes.get(name)) {
@@ -50,21 +48,23 @@ export function Bean(option?: IBeanOption): Function {
  * @returns
  */
 export function AutoWrite(option?: IBeanOption): Function {
-  if (!option) option = new BeanOption();
+  const beanOption = option || new BeanOption();
   return new DecoratorFactory()
     .setPropertyCallback((target, key) => {
       let realKey = key;
-      //注入(构造方法中才会调用初始化，则创建对象的时候才实现注入)
-      if (option!.name) realKey = option!.name;
-
-      if (option!.prefix) {
-        realKey = option!.prefix + key.toString();
+      // 注入(构造方法中才会调用初始化，则创建对象的时候才实现注入)
+      if (beanOption!.name) {
+        realKey = beanOption!.name;
       }
 
-      let theClass = Core.getInstance().classes.get(realKey);
+      if (beanOption!.prefix) {
+        realKey = beanOption!.prefix + key.toString();
+      }
 
-      if (!Core.getInstance().container.get(realKey) && theClass) {
-        Core.getInstance().container.set(realKey, new theClass());
+      let TheClass = Core.getInstance().classes.get(realKey);
+
+      if (!Core.getInstance().container.get(realKey) && TheClass) {
+        Core.getInstance().container.set(realKey, new TheClass());
       }
 
       Reflect.defineProperty(target, key, {

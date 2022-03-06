@@ -1,5 +1,6 @@
-import { IOption } from "./IOption";
-import { Core } from "./../core/Core";
+import { IOption } from './IOption';
+import { Core } from './../core/Core';
+
 /**
  * IPlugin
  * @description 插件接口

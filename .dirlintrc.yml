@@ -1,0 +1,46 @@
+rules:
+  /:
+    /src:
+      /**.ts:
+        - file
+        - PascalCaseWithABB
+      /index.ts:
+        - file
+      /typeDeclare.ts:
+        - file
+      /code:
+        - dir
+      /decorator:
+        - dir
+      /entity:
+        /*:
+          - dir
+          - camelCaseWithABB
+      /interface:
+        /*:
+          - dir
+          - camelCaseWithABB
+      /*:
+        - dir
+        - camelCaseWithABB
+
+# 例外，支持中间用*匹配任意字符，**匹配任意路径
+exceptions:
+  - /.husky
+  - /.vscode
+  - /lib
+  - /example
+  - /node_modules
+  - /.commitlintrc.json
+  - /.dirlintrc.yml
+  - /.editorconfig
+  - /.eslintignore
+  - /.eslintrc.js
+  - /.git
+  - /.gitignore
+  - /.lintstagedrc.json
+  - /LICENSE
+  - /package-lock.json
+  - /package.json
+  - /README.md
+  - /tsconfig.json

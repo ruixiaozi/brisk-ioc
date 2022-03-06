@@ -1,27 +1,30 @@
-import { IPlugin } from "./interface/IPlugin";
-import { Core } from "./core/Core";
-import { IOption } from "./interface/IOption";
-
+import { IPlugin } from './interface/IPlugin';
+import { Core } from './core/Core';
+import { IOption } from './interface/IOption';
 // 核心
-export * from "./core/Core";
+export * from './core/Core';
+
+// 日志
+export * from './logger/Logger';
 
 // 导出实体
-export * from "./entity/option/BeanOption";
-export * from "./entity/InitFunc";
-export * from "./entity/option/InitOption";
+export * from './entity/option/BeanOption';
+export * from './entity/InitFunc';
+export * from './entity/option/InitOption';
 
 // 导出接口
-export * from "./interface/IOption";
-export * from "./interface/IPlugin";
-export * from "./interface/option/IBeanOption";
-export * from "./interface/option/IInitOption";
+export * from './interface/IOption';
+export * from './interface/IPlugin';
+export * from './interface/option/IBeanOption';
+export * from './interface/option/IInitOption';
+export * from './interface/option/ILoggerOption';
 
 // 导出类型声明
-export * from "./typeDeclare";
+export * from './typeDeclare';
 
 // 导出装饰器
-export * from "./decorator/CoreDecorator";
-export * from "./decorator/DecoratorFactory";
+export * from './decorator/CoreDecorator';
+export * from './decorator/DecoratorFactory';
 
 /**
  * Brisk-IoC
@@ -31,6 +34,7 @@ export * from "./decorator/DecoratorFactory";
  * https://github.com/ruixiaozi/brisk-ioc.git
  */
 class _BriskIoC {
+
   core: Core = Core.getInstance();
 
   /**
@@ -42,14 +46,15 @@ class _BriskIoC {
    */
   use(plugin: IPlugin, option?: IOption): _BriskIoC {
     if (!plugin || !plugin.install) {
-      //错误的格式
-      console.log("plugins use err: error plugin class format");
+      // 错误的格式
+      this.core.logger.error('plugins use err: error plugin class format');
     } else {
-      //调用安装方法，传入当前类，和参数
+      // 调用安装方法，传入当前类，和参数
       plugin.install(this.core, option);
     }
     return this;
   }
+
 }
 
 export const BriskIoC = new _BriskIoC();

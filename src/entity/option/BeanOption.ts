@@ -1,4 +1,4 @@
-import { IBeanOption } from "./../../interface/option/IBeanOption";
+import { IBeanOption } from './../../interface/option/IBeanOption';
 
 /**
  * BeanOption
@@ -9,10 +9,13 @@ import { IBeanOption } from "./../../interface/option/IBeanOption";
  * @version 2.0.0
  */
 export class BeanOption implements IBeanOption {
+
   /**
    * 构造器
    * @param prefix 组件名称前缀
    * @param name 组件名称，默认使用类名的小驼峰
    */
   constructor(public prefix?: string, public name?: string) {}
+
 }
+

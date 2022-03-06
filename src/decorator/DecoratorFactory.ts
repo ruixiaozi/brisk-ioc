@@ -1,4 +1,4 @@
-import { Target, Key, Class, DescOrNum, Decorator } from "./../typeDeclare";
+import { Target, Key, Class, DescOrNum, Decorator } from './../typeDeclare';
 
 // 类装饰器回调方法类型
 export type ClassCallbackFunc = (target: Class) => void;
@@ -22,11 +22,12 @@ export type MethodCallbackFunc = (
  * @version 2.0.0
  */
 export class DecoratorFactory {
+
   constructor(
     private _classCallback?: ClassCallbackFunc,
     private _propertyCallback?: PropertyCallbackFunc,
     private _paramCallback?: ParamCallbackFunc,
-    private _methodCallback?: MethodCallbackFunc
+    private _methodCallback?: MethodCallbackFunc,
   ) {}
 
   public setClassCallback(func: ClassCallbackFunc): DecoratorFactory {
@@ -50,32 +51,34 @@ export class DecoratorFactory {
   }
 
   public getDecorator(): Decorator {
-    return (target: Target, key?: Key, descriptorOrIndex?: DescOrNum) => {
-      //只有一个参数，类装饰器
+    return (target: Target, key?: Key, descriptorOrIndex?: DescOrNum): void => {
+      // 只有一个参数，类装饰器
       if (target && !key && !descriptorOrIndex) {
         const cTarget = target as Class;
-
         this._classCallback && this._classCallback(cTarget);
+        return;
       }
-      //只有两个参数，属性装饰器
-      else if (target && key && !descriptorOrIndex) {
+
+      // 只有两个参数，属性装饰器
+      if (target && key && !descriptorOrIndex) {
         const oTarget = target as any;
         this._propertyCallback && this._propertyCallback(oTarget, key);
+        return;
       }
-      //三个参数
-      else if (target && key && descriptorOrIndex) {
+
+      // 三个参数
+      if (target && key && descriptorOrIndex) {
         const oTarget = target as any;
-        //第三个参数为数字，参数装饰器
-        if (typeof descriptorOrIndex === "number") {
-          this._paramCallback &&
-            this._paramCallback(oTarget, key, descriptorOrIndex);
+        if (typeof descriptorOrIndex === 'number') {
+          // 第三个参数为数字，参数装饰器
+          this._paramCallback && this._paramCallback(oTarget, key, descriptorOrIndex);
+          return;
         }
-        //方法和访问器装饰器
-        else {
-          this._methodCallback &&
-            this._methodCallback(oTarget, key, descriptorOrIndex);
-        }
+
+        // 方法和访问器装饰器
+        this._methodCallback && this._methodCallback(oTarget, key, descriptorOrIndex);
       }
     };
   }
+
 }
