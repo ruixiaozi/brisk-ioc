@@ -8,7 +8,7 @@ rules:
         - file
       /typeDeclare.ts:
         - file
-      /code:
+      /core:
         - dir
       /decorator:
         - dir
@@ -20,9 +20,8 @@ rules:
         /*:
           - dir
           - camelCaseWithABB
-      /*:
+      /logger:
         - dir
-        - camelCaseWithABB
 
 # 例外，支持中间用*匹配任意字符，**匹配任意路径
 exceptions:
