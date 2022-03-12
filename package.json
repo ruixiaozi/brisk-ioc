@@ -42,10 +42,10 @@
     "@types/node": "16.11.10",
     "@typescript-eslint/eslint-plugin": "5.13.0",
     "@typescript-eslint/parser": "5.13.0",
+    "dirlint": "^1.0.1",
     "eslint": "8.10.0",
-    "eslint-config-brisk": "file:../eslint-config-brisk",
+    "eslint-config-brisk": "^1.0.2",
     "husky": "7.0.4",
-    "lint-staged": "12.3.4",
-    "dirlint": "file:../dirlint"
+    "lint-staged": "12.3.4"
   }
 }
