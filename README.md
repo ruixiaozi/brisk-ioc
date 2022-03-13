@@ -20,10 +20,12 @@ Copyright (c) 2021 Ruixiaozi
 
 # Documentation
 
+`git config --global core.autocrlf false`
+
 [参考Example](./example)
    
 # Support
-
+ 
 + bluebird
 + winston
 + winston-daily-rotate-file
