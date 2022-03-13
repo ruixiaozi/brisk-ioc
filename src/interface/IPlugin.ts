@@ -10,5 +10,6 @@ import { Core } from './../core/Core';
  * @version 2.0.0
  */
 export interface IPlugin {
+  name?: string;
   install(core: Core, option?: IOption): void;
 }

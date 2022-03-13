@@ -1,4 +1,3 @@
-import { ILoggerOption } from './../interface/option/ILoggerOption';
 import { Logger } from './../logger/Logger';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -41,17 +40,7 @@ export class Core {
   public initList: InitFunc[] = [];
 
   // 日志实例
-  public logger: Logger = Logger.getInstance();
-
-  /**
-   * 配置日志选项
-   * @param option 自定义日志选项
-   * @returns {Core} 类本身
-   */
-  public loggerConfig(option: ILoggerOption): Core {
-    this.logger = Logger.getInstance(option);
-    return this;
-  }
+  public logger: Logger = Logger.getInstance('brisk-ioc');
 
   /**
    * scanPackage 扫描包
@@ -82,9 +71,10 @@ export class Core {
    * @returns Core
    */
   public initAsync(): Promise<Core> {
+    this.logger.info('brisk-ioc initializing');
     // 先加载组件文件
     this.componentFileList.forEach((file) => {
-      this.logger.info(`scan component file:${file}`);
+      Logger.isDebug && this.logger.debug(`scan component file:${file}`);
       require(file);
     });
 
@@ -99,7 +89,10 @@ export class Core {
       const fnRes = item.fn();
       // 使用Promise.resolve保证不论是Promise的方法还是常规方法都得到执行
       return Promise.resolve(fnRes);
-    }).then(() => _that);
+    }).then(() => {
+      this.logger.info('brisk-ioc initialized');
+      return _that;
+    });
   }
 
   /**

@@ -49,6 +49,7 @@ class _BriskIoC {
       // 错误的格式
       this.core.logger.error('plugins use err: error plugin class format');
     } else {
+      this.core.logger.info(`brisk-ioc use plugin: [${plugin?.name || 'no name'}]`);
       // 调用安装方法，传入当前类，和参数
       plugin.install(this.core, option);
     }

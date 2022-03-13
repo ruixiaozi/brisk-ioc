@@ -1,3 +1,5 @@
+import { Key } from './../typeDeclare';
+import { Logger } from './../logger/Logger';
 import { IBeanOption } from './../interface/option/IBeanOption';
 import { IInitOption } from './../interface/option/IInitOption';
 import { DecoratorFactory } from './DecoratorFactory';
@@ -85,4 +87,22 @@ export function AutoWrite(option?: IBeanOption): Function {
  */
 export function Service(option?: IBeanOption): Function {
   return Bean(option);
+}
+
+/**
+ * 日志 装饰器工厂
+ * @returns
+ */
+export function Log(region?: Key): Function {
+  return new DecoratorFactory()
+    .setPropertyCallback((target, key) => {
+      Reflect.defineProperty(target, key, {
+        enumerable: true,
+        configurable: false,
+        get() {
+          return Logger.getInstance(region);
+        },
+      });
+    })
+    .getDecorator();
 }

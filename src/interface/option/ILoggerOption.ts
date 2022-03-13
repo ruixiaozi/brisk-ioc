@@ -5,12 +5,22 @@ export interface LogMsg{
   level: string;
   timeStr: string;
   message: string;
+  region?: string;
 }
 
 // 日志文件输出配置
 export interface FileConfig{
+  // "logs/info-%DATE%.log",
   path: string;
   level: string;
+  // datePattern: "YYYY-MM-DD"
+  datePattern?: string;
+  // true
+  zippedArchive?: boolean;
+  // '20m'
+  maxSize?: string;
+  // '30d'
+  maxFiles?: string;
 }
 
 // 日志控制台输出配置
@@ -34,4 +44,6 @@ export interface ILoggerOption extends IOption {
   formatFnc: FormatFnction;
   fileConfigs: FileConfig[];
   consoleConfig: ConsoleConfig;
+  isDebug?: boolean;
+  isMultiFile?: boolean;
 }
