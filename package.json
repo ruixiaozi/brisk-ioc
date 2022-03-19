@@ -1,6 +1,6 @@
 {
   "name": "brisk-ioc",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "fast light brisk ioc/di container on nodejs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
