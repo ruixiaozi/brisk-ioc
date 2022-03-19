@@ -7,6 +7,7 @@ import { Core } from '../core/Core';
 import { InitFunc } from '../entity/InitFunc';
 import { BeanOption } from '../entity/option/BeanOption';
 import { InitOption } from '../entity/option/InitOption';
+import { camelCase as _camelCase } from 'lodash';
 
 /**
  * 初始化生命周期 装饰器工厂
@@ -18,7 +19,7 @@ export function Init(option?: IInitOption): Function {
   return new DecoratorFactory()
     .setMethodCallback((target, key, descriptor) => {
       const initFunc = new InitFunc(descriptor.value, initOption.priority);
-      Core.getInstance().initList.push(initFunc);
+      Core.getInstance().putInitFunc(initFunc);
     })
     .getDecorator();
 }
@@ -31,15 +32,9 @@ export function Init(option?: IInitOption): Function {
 export function Bean(option?: IBeanOption): Function {
   const beanOption = option || new BeanOption();
   return new DecoratorFactory()
-    .setClassCallback((target) => {
-      let name = beanOption!.name || (target.name.charAt(0).toLowerCase() + target.name.slice(1));
-      if (beanOption!.prefix) {
-        name = beanOption!.prefix + name;
-      }
-
-      if (!Core.getInstance().classes.get(name)) {
-        Core.getInstance().classes.set(name, target);
-      }
+    .setClassCallback((Target) => {
+      let name = beanOption.name || _camelCase(Target.name);
+      Core.getInstance().putBean(name, new Target(), beanOption.region);
     })
     .getDecorator();
 }
@@ -53,27 +48,12 @@ export function AutoWrite(option?: IBeanOption): Function {
   const beanOption = option || new BeanOption();
   return new DecoratorFactory()
     .setPropertyCallback((target, key) => {
-      let realKey = key;
-      // 注入(构造方法中才会调用初始化，则创建对象的时候才实现注入)
-      if (beanOption!.name) {
-        realKey = beanOption!.name;
-      }
-
-      if (beanOption!.prefix) {
-        realKey = beanOption!.prefix + key.toString();
-      }
-
-      let TheClass = Core.getInstance().classes.get(realKey);
-
-      if (!Core.getInstance().container.get(realKey) && TheClass) {
-        Core.getInstance().container.set(realKey, new TheClass());
-      }
-
+      const realKey = beanOption.name || key.toString();
       Reflect.defineProperty(target, key, {
         enumerable: true,
         configurable: false,
         get() {
-          return Core.getInstance().container.get(realKey);
+          return Core.getInstance().getBean(realKey, beanOption.region);
         },
       });
     })

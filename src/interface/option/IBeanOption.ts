@@ -9,6 +9,6 @@ import { IOption } from './../IOption';
  * @version 2.0.4
  */
 export interface IBeanOption extends IOption {
-  prefix?: string;
+  region?: Symbol;
   name?: string;
 }

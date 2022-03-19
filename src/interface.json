@@ -1,0 +1,87 @@
+{
+  "IOption": {},
+  "IPlugin": {
+    "name": [
+      "string",
+      "undefined"
+    ]
+  },
+  "IBeanOption": {
+    "region": [
+      "object",
+      "undefined"
+    ],
+    "name": [
+      "string",
+      "undefined"
+    ]
+  },
+  "IInitOption": {
+    "priority": [
+      "number"
+    ]
+  },
+  "LogMsg": {
+    "level": [
+      "string"
+    ],
+    "timeStr": [
+      "string"
+    ],
+    "message": [
+      "string"
+    ],
+    "region": [
+      "string",
+      "undefined"
+    ]
+  },
+  "FileConfig": {
+    "path": [
+      "string"
+    ],
+    "level": [
+      "string"
+    ],
+    "datePattern": [
+      "string",
+      "undefined"
+    ],
+    "zippedArchive": [
+      "boolean",
+      "undefined"
+    ],
+    "maxSize": [
+      "string",
+      "undefined"
+    ],
+    "maxFiles": [
+      "string",
+      "undefined"
+    ]
+  },
+  "ConsoleConfig": {
+    "enable": [
+      "boolean"
+    ],
+    "level": [
+      "string"
+    ]
+  },
+  "ILoggerOption": {
+    "formatFnc": [
+      "object"
+    ],
+    "consoleConfig": [
+      "object"
+    ],
+    "isDebug": [
+      "boolean",
+      "undefined"
+    ],
+    "isMultiFile": [
+      "boolean",
+      "undefined"
+    ]
+  }
+}

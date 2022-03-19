@@ -8,6 +8,8 @@ rules:
         - file
       /typeDeclare.ts:
         - file
+      /interface.json:
+        - file
       /core:
         - dir
       /decorator:
@@ -42,5 +44,6 @@ exceptions:
   - /package-lock.json
   - /package.json
   - /README.md
+  - /FIXLOG.md
   - /tsconfig.json
 

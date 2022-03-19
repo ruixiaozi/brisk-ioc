@@ -1,3 +1,9 @@
+// 引入reflect-metadata
+import 'reflect-metadata';
+import { is, configPath as IS_CONFIG_PATH } from 'brisk-ts-extends/is';
+import * as path from 'path';
+// 配置is扩展的接口json文件
+IS_CONFIG_PATH(path.join(__dirname, './interface.json'));
 import { IPlugin } from './interface/IPlugin';
 import { Core } from './core/Core';
 import { IOption } from './interface/IOption';
@@ -44,14 +50,14 @@ class _BriskIoC {
    * @param {Object} option 插件选项
    * @returns void
    */
-  use(plugin: IPlugin, option?: IOption): _BriskIoC {
-    if (!plugin || !plugin.install) {
-      // 错误的格式
-      this.core.logger.error('plugins use err: error plugin class format');
-    } else {
+  public use(plugin: IPlugin, option?: IOption): _BriskIoC {
+    if (is<IPlugin>(plugin, 'IPlugin')) {
       this.core.logger.info(`brisk-ioc use plugin: [${plugin?.name || 'no name'}]`);
       // 调用安装方法，传入当前类，和参数
       plugin.install(this.core, option);
+    } else {
+      // 错误的格式
+      this.core.logger.error('plugins use err: error plugin class format');
     }
     return this;
   }

@@ -3,44 +3,92 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Promise } from 'bluebird';
 import { InitFunc } from '../entity/InitFunc';
-import { Class, Key } from '../typeDeclare';
+import { cloneDeep as _cloneDeep } from 'lodash';
+
+export enum CoreModeEnum{
+  SINGLETION='singleton',
+  PROTOTYPE='prototype',
+}
 
 /**
  * Core 核心功能
- * @description 单例
+ * @description
  * @author ruixiaozi
  * @email admin@ruixiaozi.com
  * @date 2022年01月16日 19:40:13
- * @version 2.0.0
+ * @version 3.0.0
  */
 export class Core {
 
-  private static core?: Core;
+  static #core?: Core;
 
-  static getInstance(): Core {
-    if (!Core.core) {
-      Core.core = new Core();
+  static #defaultSymbol: Symbol = Symbol('default');
+
+  public static getInstance(): Core {
+    if (!Core.#core) {
+      Core.#core = new Core();
     }
-    return Core.core;
+    return Core.#core;
   }
 
-  // 组件实例容器
-  public container: Map<Key, object> = new Map<Key, object>();
+  // 组件实例容器 <region, <key, value>>
+  #container: Map<Symbol, Map<string, any>> = new Map<Symbol, Map<string, any>>();
 
-  // 组件的类定义列表
-  public classes: Map<Key, { new (): object }> = new Map<
-    Key,
-    { new(): object }
-  >();
+  #mode: CoreModeEnum = CoreModeEnum.SINGLETION;
+
+  #isDebug: boolean = false;
 
   // 扫描的组件文件列表
-  public componentFileList: string[] = [];
+  #componentFileList: string[] = [];
 
   // 初始化生命 (@Init) 周期方法 列表
-  public initList: InitFunc[] = [];
+  #initList: InitFunc[] = [];
 
   // 日志实例
   public logger: Logger = Logger.getInstance('brisk-ioc');
+
+  public config(isDebug: boolean = false, mode: CoreModeEnum = CoreModeEnum.SINGLETION): Core {
+    this.#mode = mode;
+    this.#isDebug = isDebug;
+    Logger.isDebug = isDebug;
+    return this;
+  }
+
+  public isDebug(): boolean {
+    return this.#isDebug;
+  }
+
+  public putInitFunc(initFunc: InitFunc): Core {
+    this.#initList.push(initFunc);
+    return this;
+  }
+
+  public putBean(name: string, value: any, region: Symbol = Core.#defaultSymbol): Core {
+    let regionContainer = this.#container.get(region);
+    if (!regionContainer) {
+      regionContainer = new Map<string, any>();
+      this.#container.set(region, regionContainer);
+    }
+    // 后者可以覆盖
+    regionContainer.set(name, value);
+    return this;
+  }
+
+  /**
+   * 获取组件
+   * @param {String} key 名称
+   * @returns {Object} 组件实例（单例）
+   */
+  public getBean<T = any>(name: string, region: Symbol = Core.#defaultSymbol): T | undefined {
+    const regionContainer = this.#container.get(region);
+    const value = regionContainer && regionContainer.get(name);
+    // 原型模式则返回一个副本
+    if (this.#mode === CoreModeEnum.PROTOTYPE && value) {
+      return _cloneDeep(value);
+    }
+    return value;
+  }
+
 
   /**
    * scanPackage 扫描包
@@ -56,7 +104,7 @@ export class Core {
           const subFiles = fs.readdirSync(file);
           this.scanPackage(file, ...subFiles);
         } else {
-          this.componentFileList.push(file);
+          this.#componentFileList.push(file);
         }
       } catch (error) {
         this.logger.error(`scanPackage error:${error}`);
@@ -73,13 +121,13 @@ export class Core {
   public initAsync(): Promise<Core> {
     this.logger.info('brisk-ioc initializing');
     // 先加载组件文件
-    this.componentFileList.forEach((file) => {
+    this.#componentFileList.forEach((file) => {
       Logger.isDebug && this.logger.debug(`scan component file:${file}`);
       require(file);
     });
 
     // 先对初始化生命周期的方法进行优先级排序
-    const InitFns = this.initList.sort((fnA, fnB) => fnA.priority - fnB.priority);
+    const InitFns = this.#initList.sort((fnA, fnB) => fnA.priority - fnB.priority);
 
     const _that = this;
 
@@ -95,31 +143,5 @@ export class Core {
     });
   }
 
-  /**
-   * 获取组件
-   * @param {String} key 名称
-   * @returns {Object} 组件实例（单例）
-   */
-  public getBean(param: string | Class): any {
-    const key = typeof param === 'string'
-      ? param
-      : param.name.replace(param.name[0], param.name[0].toLowerCase());
-
-    // 如果没有实例，但是有类型，则创建一个单例
-    if (!this.container.has(key)) {
-      // 如果收集到有对应的类型构造器
-      const constructor = this.classes.get(key);
-      if (constructor) {
-        this.container.set(key, new constructor());
-      } else if (typeof param !== 'string') {
-        // 如果构造器不存在,且传入的类型
-        const BeanClass = param;
-        this.classes.set(key, param);
-        this.container.set(key, new BeanClass());
-      }
-    }
-
-    return this.container.get(key);
-  }
 
 }
