@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/ruixiaozi/brisk-ioc#readme",
   "dependencies": {
-    "bluebird": ">=3.7.0",
+    "bluebird": "3.7.2",
     "lodash": "4.17.21",
     "reflect-metadata": "0.1.13",
     "winston": "3.6.0",
@@ -65,6 +65,6 @@
     "eslint-config-brisk": "1.0.2",
     "husky": "7.0.4",
     "lint-staged": "12.3.4",
-    "rimraf": "^3.0.2"
+    "rimraf": "3.0.2"
   }
 }
