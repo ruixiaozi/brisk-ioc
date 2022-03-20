@@ -53,8 +53,8 @@ export class Core {
   public logger: Logger = Logger.getInstance('brisk-ioc');
 
   /**
-   * config 配置
-   * {@link configurate}
+   * config 配置 </br>
+   * 替代方法：{@link configurate}
    * @deprecated since version 3.0.1
    * @param isDebug 是否开启调试
    * @param mode 模式
