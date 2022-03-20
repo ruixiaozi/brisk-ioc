@@ -5,12 +5,13 @@
 
 
 ## 3.0.1 [Current]
-###### 发布日期：2022.3.27
+###### 发布日期：2022.3.20
 ###### 兼容性：向下兼容3.x.x
 + README.md [update] 通用性修改
 + Core [update]
   + `configurate(option: ICoreOption): Core` [add] 配置Core
   + `config(isDebug: boolean = false, mode: CoreModeEnum = CoreModeEnum.SINGLETION): Core` [deprecated] 配置Core
++ 修复打包问题
 
 ## 3.0.0 [Current]
 ###### 发布日期：2022.3.20
