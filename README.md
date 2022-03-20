@@ -2,7 +2,7 @@
 
 最新版本规定
 
-| LTS   | BETA  |
+| LTS 最新长期支持版本  | Current 最新版本  |
 | ----- | ----- |
 | 2.x.x | 3.x.x |
 
@@ -27,6 +27,10 @@ Copyright (c) 2021 Ruixiaozi
 `git config --global core.autocrlf false`
 
 [参考Example](./example)
+
+# ChangeLog
+
+[查看CHANGELOG](./CHANGELOG.md)
 
 # Support
 

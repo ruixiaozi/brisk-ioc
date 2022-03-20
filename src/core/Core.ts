@@ -1,3 +1,4 @@
+import { ICoreOption } from './../interface/option/ICoreOption';
 import { Logger } from './../logger/Logger';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -24,6 +25,10 @@ export class Core {
 
   static #defaultSymbol: Symbol = Symbol('default');
 
+  /**
+   * 获取Core实例
+   * @returns Core
+   */
   public static getInstance(): Core {
     if (!Core.#core) {
       Core.#core = new Core();
@@ -47,6 +52,14 @@ export class Core {
   // 日志实例
   public logger: Logger = Logger.getInstance('brisk-ioc');
 
+  /**
+   * config 配置
+   * {@link configurate}
+   * @deprecated since version 3.0.1
+   * @param isDebug 是否开启调试
+   * @param mode 模式
+   * @returns Core
+   */
   public config(isDebug: boolean = false, mode: CoreModeEnum = CoreModeEnum.SINGLETION): Core {
     this.#mode = mode;
     this.#isDebug = isDebug;
@@ -54,15 +67,43 @@ export class Core {
     return this;
   }
 
+  /**
+   * 配置参数
+   * @param option 配置选项
+   * @returns Core
+   */
+  public configurate(option: ICoreOption): Core {
+    this.#mode = option.model ?? CoreModeEnum.SINGLETION;
+    this.#isDebug = option.isDebug ?? false;
+    Logger.isDebug = option.isDebug ?? false;
+    return this;
+  }
+
+  /**
+   * 是否开启调试
+   * @returns boolean
+   */
   public isDebug(): boolean {
     return this.#isDebug;
   }
 
+  /**
+   * 放置初始化方法到列表
+   * @param initFunc 初始化方法
+   * @returns Core
+   */
   public putInitFunc(initFunc: InitFunc): Core {
     this.#initList.push(initFunc);
     return this;
   }
 
+  /**
+   * 放置Bean
+   * @param name beanName
+   * @param value bean对象
+   * @param region 域
+   * @returns Core
+   */
   public putBean(name: string, value: any, region: Symbol = Core.#defaultSymbol): Core {
     let regionContainer = this.#container.get(region);
     if (!regionContainer) {
@@ -75,9 +116,10 @@ export class Core {
   }
 
   /**
-   * 获取组件
-   * @param {String} key 名称
-   * @returns {Object} 组件实例（单例）
+   * 获取Bean
+   * @param name beanName
+   * @param region 域
+   * @returns Core
    */
   public getBean<T = any>(name: string, region: Symbol = Core.#defaultSymbol): T | undefined {
     const regionContainer = this.#container.get(region);
@@ -116,7 +158,7 @@ export class Core {
 
   /**
    * 异步初始化
-   * @returns Core
+   * @returns Promise<Core>
    */
   public initAsync(): Promise<Core> {
     this.logger.info('brisk-ioc initializing');

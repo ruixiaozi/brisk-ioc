@@ -1,12 +1,18 @@
-# 修改日志
+# 修改日志 3.x.x [Current]
+
+> 次版本：每季度发布一次，向下兼容的功能性新增
+> 修订版本：每周发布一次，向下兼容的问题修正
 
 
-## 3.0.1 [Beta]
-###### 发布日期：待定
-###### 兼容性：兼容3.0.x
-+ 修改描述文件重新使用BriskIoC命名
+## 3.0.1 [Current]
+###### 发布日期：2022.3.27
+###### 兼容性：向下兼容3.x.x
++ README.md [update] 通用性修改
++ Core [update]
+  + `configurate(option: ICoreOption): Core` [add] 配置Core
+  + `config(isDebug: boolean = false, mode: CoreModeEnum = CoreModeEnum.SINGLETION): Core` [deprecated] 配置Core
 
-## 3.0.0 [Beta]
+## 3.0.0 [Current]
 ###### 发布日期：2022.3.20
 ###### 兼容性：不兼容低版本以及相关低版本插件
 + BriskIoC 模块对象 （微调）

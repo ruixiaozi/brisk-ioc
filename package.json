@@ -8,7 +8,7 @@
     "test": "node example/index.js",
     "compile": "tsc",
     "precompile": "rimraf ./lib && ts-extends-is --source=./src/interface --output=./src/interface.json",
-    "postcompile": "copyfiles -u 1 src/**/* -e src/**/*.ts lib/",
+    "postcompile": "copyfiles -u 1 \"./src/**/*\" -e \"./src/**/*.ts\" \"./lib\"",
     "upversion": "npm version patch",
     "prepare": "husky install"
   },
