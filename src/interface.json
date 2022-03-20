@@ -16,6 +16,16 @@
       "undefined"
     ]
   },
+  "ICoreOption": {
+    "isDebug": [
+      "boolean",
+      "undefined"
+    ],
+    "model": [
+      "object",
+      "undefined"
+    ]
+  },
   "IInitOption": {
     "priority": [
       "number"

@@ -44,6 +44,6 @@ exceptions:
   - /package-lock.json
   - /package.json
   - /README.md
-  - /FIXLOG.md
+  - /CHANGELOG.md
   - /tsconfig.json
 
