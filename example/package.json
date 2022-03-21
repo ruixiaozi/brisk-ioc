@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "brisk-ioc": "^3.0.0"
+    "brisk-ioc": "file:../"
   }
 }

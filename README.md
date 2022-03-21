@@ -1,10 +1,9 @@
 # BriskIoC
 
-最新版本规定
+<a href="https://www.npmjs.com/package/brisk-ioc"><img src="https://img.shields.io/npm/v/brisk-ioc.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/brisk-ioc"><img src="https://img.shields.io/npm/l/brisk-ioc.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/package/brisk-ioc"><img src="https://img.shields.io/npm/dm/brisk-ioc.svg" alt="NPM Downloads" /></a>
 
-| LTS 最新长期支持版本  | Current 最新版本  |
-| ----- | ----- |
-| 2.x.x | 3.x.x |
 
 BriskIoC is a fast, light-weight, brisk IoC/DI container to work in ts-node. It refers to the Spring framework and implements dependency injection through decorators and reflection.
 
