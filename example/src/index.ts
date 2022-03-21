@@ -3,7 +3,9 @@ import { T2 } from './service/T2';
 
 (async function() {
   await BriskIoC.core
-    .config(true)
+    .configurate({
+      isDebug: true,
+    })
     .scanPackage(__dirname,"./bean","./service")
     .initAsync();
 
