@@ -1,4 +1,4 @@
-import { IOption } from './IOption';
+import { IOption } from '@interface/IOption';
 import { Core } from '@core';
 
 /**

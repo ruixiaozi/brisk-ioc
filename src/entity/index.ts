@@ -1,3 +1,3 @@
-export * from './InitFunc';
-export * from './option/BeanOption';
-export * from './option/InitOption';
+export * from '@entity/InitFunc';
+export * from '@entity/option/BeanOption';
+export * from '@entity/option/InitOption';

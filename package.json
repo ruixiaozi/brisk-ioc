@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "node example/index.js",
+    "test": "ts-node example/src/index.ts",
     "compile": "ttsc",
     "precompile": "rimraf ./lib && ts-extends-is --source=./src/interface --output=./src/interface.json",
     "postcompile": "copyfiles -u 1 \"./src/**/*\" -e \"./src/**/*.ts\" \"./lib\"",

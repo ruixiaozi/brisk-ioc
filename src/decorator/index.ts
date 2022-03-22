@@ -1,2 +1,2 @@
-export * from './CoreDecorator';
-export * from './DecoratorFactory';
+export * from '@decorator/CoreDecorator';
+export * from '@decorator/DecoratorFactory';

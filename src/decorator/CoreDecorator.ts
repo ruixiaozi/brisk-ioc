@@ -1,7 +1,7 @@
 import { Key } from '@typeDeclare';
 import { Logger } from '@logger';
 import { IBeanOption, IInitOption } from '@interface';
-import { DecoratorFactory } from '@decorator';
+import { DecoratorFactory } from '@decorator/DecoratorFactory';
 import { Core } from '@core';
 import { InitFunc, BeanOption, InitOption } from '@entity';
 import { camelCase as _camelCase } from 'lodash';

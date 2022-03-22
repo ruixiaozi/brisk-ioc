@@ -11,8 +11,11 @@
     "paths": {
       "@": ["./src"],
       "@interface": ["./src/interface"],
+      "@interface/*": ["./src/interface/*"],
       "@entity": ["./src/entity"],
+      "@entity/*": ["./src/entity/*"],
       "@decorator": ["./src/decorator"],
+      "@decorator/*": ["./src/decorator/*"],
       "@core": ["./src/core/Core.ts"],
       "@logger": ["./src/logger/Logger.ts"],
       "@typeDeclare": ["./src/typeDeclare.ts"]
