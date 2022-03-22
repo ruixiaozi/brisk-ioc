@@ -1,12 +1,9 @@
-import { Key } from './../typeDeclare';
-import { Logger } from './../logger/Logger';
-import { IBeanOption } from './../interface/option/IBeanOption';
-import { IInitOption } from './../interface/option/IInitOption';
-import { DecoratorFactory } from './DecoratorFactory';
-import { Core } from '../core/Core';
-import { InitFunc } from '../entity/InitFunc';
-import { BeanOption } from '../entity/option/BeanOption';
-import { InitOption } from '../entity/option/InitOption';
+import { Key } from '@typeDeclare';
+import { Logger } from '@logger';
+import { IBeanOption, IInitOption } from '@interface';
+import { DecoratorFactory } from '@decorator';
+import { Core } from '@core';
+import { InitFunc, BeanOption, InitOption } from '@entity';
 import { camelCase as _camelCase } from 'lodash';
 
 /**

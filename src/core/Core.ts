@@ -1,9 +1,9 @@
-import { ICoreOption } from './../interface/option/ICoreOption';
-import { Logger } from './../logger/Logger';
+import { ICoreOption } from '@interface';
+import { Logger } from '@logger';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Promise } from 'bluebird';
-import { InitFunc } from '../entity/InitFunc';
+import { InitFunc } from '@entity';
 import { cloneDeep as _cloneDeep } from 'lodash';
 
 export enum CoreModeEnum{

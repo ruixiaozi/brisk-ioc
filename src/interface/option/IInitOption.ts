@@ -1,4 +1,4 @@
-import { IOption } from './../IOption';
+import { IOption } from '../IOption';
 
 /**
  * IInitOption

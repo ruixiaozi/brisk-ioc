@@ -1,36 +1,28 @@
 // 引入reflect-metadata
 import 'reflect-metadata';
-import { is, configPath as IS_CONFIG_PATH } from 'brisk-ts-extends/is';
 import * as path from 'path';
+import { is, configPath as IS_CONFIG_PATH } from 'brisk-ts-extends/is';
 // 配置is扩展的接口json文件
 IS_CONFIG_PATH(path.join(__dirname, './interface.json'));
-import { IPlugin } from './interface/IPlugin';
-import { Core } from './core/Core';
-import { IOption } from './interface/IOption';
+import { IPlugin, IOption } from '@interface';
+import { Core } from '@core';
 // 核心
-export * from './core/Core';
+export * from '@core';
 
 // 日志
-export * from './logger/Logger';
+export * from '@logger';
 
 // 导出实体
-export * from './entity/option/BeanOption';
-export * from './entity/InitFunc';
-export * from './entity/option/InitOption';
+export * from '@entity';
 
 // 导出接口
-export * from './interface/IOption';
-export * from './interface/IPlugin';
-export * from './interface/option/IBeanOption';
-export * from './interface/option/IInitOption';
-export * from './interface/option/ILoggerOption';
+export * from '@interface';
 
 // 导出类型声明
-export * from './typeDeclare';
+export * from '@typeDeclare';
 
 // 导出装饰器
-export * from './decorator/CoreDecorator';
-export * from './decorator/DecoratorFactory';
+export * from '@decorator';
 
 /**
  * Brisk-IoC

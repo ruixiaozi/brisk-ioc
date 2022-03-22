@@ -6,7 +6,24 @@
     "outDir": "lib",
     "strict": true,
     "esModuleInterop": true,
-    "pretty": true
+    "pretty": true,
+    "baseUrl": ".",
+    "paths": {
+      "@": ["./src"],
+      "@interface": ["./src/interface"],
+      "@entity": ["./src/entity"],
+      "@decorator": ["./src/decorator"],
+      "@core": ["./src/core/Core.ts"],
+      "@logger": ["./src/logger/Logger.ts"],
+      "@typeDeclare": ["./src/typeDeclare.ts"]
+    },
+    "plugins": [
+      // 转换输出 .js 文件中的路径
+      {  "transform" : "typescript-transform-paths"  } ,
+
+      // 转换输出 .d.ts 文件中的路径（如果输出声明文件，请包含此行）
+      {  "transform" : "typescript-transform-paths" ,  "afterDeclarations" : true  }
+    ]
   },
   "include": ["src"]
 }

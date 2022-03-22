@@ -1,4 +1,4 @@
-import { Target, Key, Class, DescOrNum, Decorator } from './../typeDeclare';
+import { Target, Key, Class, DescOrNum, Decorator } from '@typeDeclare';
 
 // 类装饰器回调方法类型
 export type ClassCallbackFunc = (target: Class) => void;

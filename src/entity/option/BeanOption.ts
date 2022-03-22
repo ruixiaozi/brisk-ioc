@@ -1,4 +1,4 @@
-import { IBeanOption } from './../../interface/option/IBeanOption';
+import { IBeanOption } from '@interface';
 
 /**
  * BeanOption

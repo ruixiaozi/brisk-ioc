@@ -1,5 +1,5 @@
 import { IOption } from './IOption';
-import { Core } from './../core/Core';
+import { Core } from '@core';
 
 /**
  * IPlugin
