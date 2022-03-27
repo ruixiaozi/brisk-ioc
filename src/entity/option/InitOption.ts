@@ -1,4 +1,4 @@
-import { IInitOption } from './../../interface/option/IInitOption';
+import { IInitOption } from '@interface';
 
 /**
  * InitOption

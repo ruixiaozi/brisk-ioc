@@ -1,5 +1,5 @@
-import { CoreModeEnum } from './../../core/Core';
-import { IOption } from './../IOption';
+import { CoreModeEnum } from '@core';
+import { IOption } from '@interface/IOption';
 
 /**
  * ICoreOption

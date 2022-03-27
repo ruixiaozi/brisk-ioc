@@ -1,4 +1,4 @@
-import { IOption } from '../IOption';
+import { IOption } from '@interface/IOption';
 
 // 日志信息接口
 export interface LogMsg{

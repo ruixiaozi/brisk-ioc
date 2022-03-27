@@ -1,12 +1,12 @@
 {
   "name": "brisk-ioc",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "fast light brisk ioc/di container on nodejs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "node example/index.js",
-    "compile": "tsc",
+    "test": "ts-node example/src/index.ts",
+    "compile": "ttsc",
     "precompile": "rimraf ./lib && ts-extends-is --source=./src/interface --output=./src/interface.json",
     "postcompile": "copyfiles -u 1 \"./src/**/*\" -e \"./src/**/*.ts\" \"./lib\"",
     "upversion": "npm version patch",
@@ -46,9 +46,7 @@
   "peerDependencies": {
     "@types/bluebird": ">=3.5.0",
     "@types/node": "*",
-    "bluebird": ">=3.7.0",
-    "ts-node": ">=10",
-    "typescript": ">=4"
+    "bluebird": ">=3.7.0"
   },
   "devDependencies": {
     "@commitlint/cli": "16.2.1",
@@ -65,6 +63,8 @@
     "eslint-config-brisk": "1.0.2",
     "husky": "7.0.4",
     "lint-staged": "12.3.4",
-    "rimraf": "3.0.2"
+    "rimraf": "3.0.2",
+    "ttypescript": "1.5.13",
+    "typescript-transform-paths": "3.3.1"
   }
 }

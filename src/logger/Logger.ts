@@ -1,8 +1,8 @@
-import { ILoggerOption, LogMsg } from './../interface/option/ILoggerOption';
+import { ILoggerOption, LogMsg } from '@interface';
 import { createLogger, format, transports, Logger as _Logger, LoggerOptions } from 'winston';
 import 'winston-daily-rotate-file';
 import TransportStream from 'winston-transport';
-import { Key } from '../typeDeclare';
+import { Key } from '@typeDeclare';
 
 /**
  * Logger

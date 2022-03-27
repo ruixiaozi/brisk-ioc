@@ -13,12 +13,17 @@ rules:
       /core:
         - dir
       /decorator:
-        - dir
+        /index.ts:
+        - file
       /entity:
+        /index.ts:
+          - file
         /*:
           - dir
           - camelCaseWithABB
       /interface:
+        /index.ts:
+          - file
         /*:
           - dir
           - camelCaseWithABB
