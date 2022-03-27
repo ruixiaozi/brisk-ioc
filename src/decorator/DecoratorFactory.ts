@@ -53,21 +53,21 @@ export class DecoratorFactory {
   public getDecorator(): Decorator {
     return (target: Target, key?: Key, descriptorOrIndex?: DescOrNum): void => {
       // 只有一个参数，类装饰器
-      if (target && !key && !descriptorOrIndex) {
+      if (target !== undefined && key === undefined && descriptorOrIndex === undefined) {
         const cTarget = target as Class;
         this._classCallback && this._classCallback(cTarget);
         return;
       }
 
       // 只有两个参数，属性装饰器
-      if (target && key && !descriptorOrIndex) {
+      if (target !== undefined && key !== undefined && descriptorOrIndex === undefined) {
         const oTarget = target as any;
         this._propertyCallback && this._propertyCallback(oTarget, key);
         return;
       }
 
       // 三个参数
-      if (target && key && descriptorOrIndex) {
+      if (target !== undefined && key !== undefined && descriptorOrIndex !== undefined) {
         const oTarget = target as any;
         if (typeof descriptorOrIndex === 'number') {
           // 第三个参数为数字，参数装饰器
