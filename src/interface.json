@@ -4,11 +4,14 @@
     "name": [
       "string",
       "undefined"
+    ],
+    "core": [
+      "any"
     ]
   },
   "IBeanOption": {
     "region": [
-      "object",
+      "any",
       "undefined"
     ],
     "name": [
@@ -22,7 +25,7 @@
       "undefined"
     ],
     "model": [
-      "object",
+      "any",
       "undefined"
     ]
   },
@@ -80,10 +83,13 @@
   },
   "ILoggerOption": {
     "formatFnc": [
-      "object"
+      "any"
+    ],
+    "fileConfigs": [
+      "any"
     ],
     "consoleConfig": [
-      "object"
+      "any"
     ],
     "isDebug": [
       "boolean",
