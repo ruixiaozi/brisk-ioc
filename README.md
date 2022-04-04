@@ -36,8 +36,10 @@ Copyright (c) 2021 Ruixiaozi
 + bluebird
 + lodash
 + reflect-metadata
-+ winston
-+ winston-daily-rotate-file
++ brisk-ts-extends
++ brisk-log
++ dirlint
++ eslint-config-brisk
 
 # Plugins
 

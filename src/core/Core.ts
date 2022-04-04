@@ -1,10 +1,10 @@
-import { ICoreOption } from '@interface';
-import { Logger } from '@logger';
+import { CoreOption, BriskInit } from '@interface';
+
 import * as fs from 'fs';
 import * as path from 'path';
 import { Promise } from 'bluebird';
-import { InitFunc } from '@entity';
 import { cloneDeep as _cloneDeep } from 'lodash';
+import { BriskLog, Logger } from 'brisk-log';
 
 export enum CoreModeEnum{
   SINGLETION='singleton',
@@ -47,10 +47,10 @@ export class Core {
   #componentFileList: string[] = [];
 
   // 初始化生命 (@Init) 周期方法 列表
-  #initList: InitFunc[] = [];
+  #initList: BriskInit[] = [];
 
   // 日志实例
-  public logger: Logger = Logger.getInstance('brisk-ioc');
+  public logger: Logger = BriskLog.getLogger(Symbol('brisk-ioc'));
 
   /**
    * config 配置 </br>
@@ -63,7 +63,7 @@ export class Core {
   public config(isDebug: boolean = false, mode: CoreModeEnum = CoreModeEnum.SINGLETION): Core {
     this.#mode = mode;
     this.#isDebug = isDebug;
-    Logger.isDebug = isDebug;
+    this.logger.isDebug = isDebug;
     return this;
   }
 
@@ -72,10 +72,10 @@ export class Core {
    * @param option 配置选项
    * @returns Core
    */
-  public configurate(option: ICoreOption): Core {
+  public configurate(option: CoreOption): Core {
     this.#mode = option.model ?? CoreModeEnum.SINGLETION;
     this.#isDebug = option.isDebug ?? false;
-    Logger.isDebug = option.isDebug ?? false;
+    this.logger.isDebug = this.#isDebug;
     return this;
   }
 
@@ -92,7 +92,7 @@ export class Core {
    * @param initFunc 初始化方法
    * @returns Core
    */
-  public putInitFunc(initFunc: InitFunc): Core {
+  public putInitFunc(initFunc: BriskInit): Core {
     this.#initList.push(initFunc);
     return this;
   }
@@ -164,7 +164,7 @@ export class Core {
     this.logger.info('brisk-ioc initializing');
     // 先加载组件文件
     this.#componentFileList.forEach((file) => {
-      Logger.isDebug && this.logger.debug(`scan component file:${file}`);
+      this.logger.isDebug && this.logger.debug(`scan component file:${file}`);
       require(file);
     });
 

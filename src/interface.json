@@ -1,6 +1,14 @@
 {
-  "IOption": {},
-  "IPlugin": {
+  "BriskInit": {
+    "fn": [
+      "any"
+    ],
+    "priority": [
+      "number"
+    ]
+  },
+  "BriskOption": {},
+  "BriskPlugin": {
     "name": [
       "string",
       "undefined"
@@ -9,7 +17,7 @@
       "any"
     ]
   },
-  "IBeanOption": {
+  "BeanOption": {
     "region": [
       "any",
       "undefined"
@@ -19,7 +27,7 @@
       "undefined"
     ]
   },
-  "ICoreOption": {
+  "CoreOption": {
     "isDebug": [
       "boolean",
       "undefined"
@@ -29,75 +37,9 @@
       "undefined"
     ]
   },
-  "IInitOption": {
+  "InitOption": {
     "priority": [
       "number"
-    ]
-  },
-  "LogMsg": {
-    "level": [
-      "string"
-    ],
-    "timeStr": [
-      "string"
-    ],
-    "message": [
-      "string"
-    ],
-    "region": [
-      "string",
-      "undefined"
-    ]
-  },
-  "FileConfig": {
-    "path": [
-      "string"
-    ],
-    "level": [
-      "string"
-    ],
-    "datePattern": [
-      "string",
-      "undefined"
-    ],
-    "zippedArchive": [
-      "boolean",
-      "undefined"
-    ],
-    "maxSize": [
-      "string",
-      "undefined"
-    ],
-    "maxFiles": [
-      "string",
-      "undefined"
-    ]
-  },
-  "ConsoleConfig": {
-    "enable": [
-      "boolean"
-    ],
-    "level": [
-      "string"
-    ]
-  },
-  "ILoggerOption": {
-    "formatFnc": [
-      "any"
-    ],
-    "fileConfigs": [
-      "any"
-    ],
-    "consoleConfig": [
-      "any"
-    ],
-    "isDebug": [
-      "boolean",
-      "undefined"
-    ],
-    "isMultiFile": [
-      "boolean",
-      "undefined"
     ]
   }
 }

@@ -1,56 +1,52 @@
-import { Key } from '@typeDeclare';
-import { Logger } from '@logger';
-import { IBeanOption, IInitOption } from '@interface';
-import { DecoratorFactory } from '@decorator/DecoratorFactory';
+import { BeanOption, InitOption } from '@interface';
+import { DecoratorFactory } from 'brisk-ts-extends/decorator';
 import { Core } from '@core';
-import { InitFunc, BeanOption, InitOption } from '@entity';
 import { camelCase as _camelCase } from 'lodash';
 
 /**
  * 初始化生命周期 装饰器工厂
- * @param {IInitOption} option 选项
+ * @param {InitOption} initOption 选项
  * @returns
  */
-export function Init(option?: IInitOption): Function {
-  const initOption = option || new InitOption();
+export function Init(initOption: InitOption = { priority: 10 }): Function {
   return new DecoratorFactory()
     .setMethodCallback((target, key, descriptor) => {
-      const initFunc = new InitFunc(descriptor.value, initOption.priority);
-      Core.getInstance().putInitFunc(initFunc);
+      Core.getInstance().putInitFunc({
+        fn: descriptor.value,
+        priority: initOption.priority,
+      });
     })
     .getDecorator();
 }
 
 /**
  * 注册组件 装饰器工厂
- * @param {IBeanOption} option 选项
+ * @param {BeanOption} beanOption 选项
  * @returns
  */
-export function Bean(option?: IBeanOption): Function {
-  const beanOption = option || new BeanOption();
+export function Bean(beanOption?: BeanOption): Function {
   return new DecoratorFactory()
     .setClassCallback((Target) => {
-      let name = beanOption.name || _camelCase(Target.name);
-      Core.getInstance().putBean(name, new Target(), beanOption.region);
+      let name = beanOption?.name || _camelCase(Target.name);
+      Core.getInstance().putBean(name, new Target(), beanOption?.region);
     })
     .getDecorator();
 }
 
 /**
  * 自动注入 装饰器工厂
- * @param {IBeanOption} option 选项
+ * @param {BeanOption} beanOption 选项
  * @returns
  */
-export function AutoWrite(option?: IBeanOption): Function {
-  const beanOption = option || new BeanOption();
+export function AutoWrite(beanOption?: BeanOption): Function {
   return new DecoratorFactory()
     .setPropertyCallback((target, key) => {
-      const realKey = beanOption.name || key.toString();
+      const realKey = beanOption?.name || key.toString();
       Reflect.defineProperty(target, key, {
         enumerable: true,
         configurable: false,
         get() {
-          return Core.getInstance().getBean(realKey, beanOption.region);
+          return Core.getInstance().getBean(realKey, beanOption?.region);
         },
       });
     })
@@ -59,27 +55,10 @@ export function AutoWrite(option?: IBeanOption): Function {
 
 /**
  * 服务 装饰器工厂
- * @param {IBeanOption} option 选项
+ * @param {BeanOption} beanOption 选项
  * @returns
  */
-export function Service(option?: IBeanOption): Function {
-  return Bean(option);
+export function Service(beanOption?: BeanOption): Function {
+  return Bean(beanOption);
 }
 
-/**
- * 日志 装饰器工厂
- * @returns
- */
-export function Log(region?: Key): Function {
-  return new DecoratorFactory()
-    .setPropertyCallback((target, key) => {
-      Reflect.defineProperty(target, key, {
-        enumerable: true,
-        configurable: false,
-        get() {
-          return Logger.getInstance(region);
-        },
-      });
-    })
-    .getDecorator();
-}
