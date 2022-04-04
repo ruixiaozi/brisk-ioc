@@ -63,7 +63,6 @@ export class Core {
   public config(isDebug: boolean = false, mode: CoreModeEnum = CoreModeEnum.SINGLETION): Core {
     this.#mode = mode;
     this.#isDebug = isDebug;
-    this.logger.isDebug = isDebug;
     return this;
   }
 
@@ -75,7 +74,6 @@ export class Core {
   public configurate(option: CoreOption): Core {
     this.#mode = option.model ?? CoreModeEnum.SINGLETION;
     this.#isDebug = option.isDebug ?? false;
-    this.logger.isDebug = this.#isDebug;
     return this;
   }
 
@@ -83,7 +81,7 @@ export class Core {
    * 是否开启调试
    * @returns boolean
    */
-  public isDebug(): boolean {
+  get isDebug(): boolean {
     return this.#isDebug;
   }
 
@@ -164,7 +162,7 @@ export class Core {
     this.logger.info('brisk-ioc initializing');
     // 先加载组件文件
     this.#componentFileList.forEach((file) => {
-      this.logger.isDebug && this.logger.debug(`scan component file:${file}`);
+      this.#isDebug && this.logger.debug(`scan component file:${file}`);
       require(file);
     });
 
