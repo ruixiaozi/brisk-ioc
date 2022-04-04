@@ -1,6 +1,6 @@
 {
   "name": "brisk-ioc",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "fast light brisk ioc/di container on nodejs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -36,9 +36,8 @@
     "bluebird": "3.7.2",
     "lodash": "4.17.21",
     "reflect-metadata": "0.1.13",
-    "winston": "3.6.0",
-    "brisk-ts-extends": "1.0.9",
-    "winston-daily-rotate-file": "4.6.1"
+    "brisk-ts-extends": "1.1.0",
+    "brisk-log": "1.0.0"
   },
   "engines": {
     "node": ">=12",
@@ -50,6 +49,8 @@
     "bluebird": ">=3.7.0"
   },
   "devDependencies": {
+    "dirlint": "1.0.1",
+    "eslint-config-brisk": "1.0.2",
     "@commitlint/cli": "16.2.1",
     "@commitlint/config-conventional": "16.2.1",
     "@types/bluebird": "3.5.36",
@@ -58,9 +59,7 @@
     "@typescript-eslint/eslint-plugin": "5.13.0",
     "@typescript-eslint/parser": "5.13.0",
     "copyfiles": "2.4.1",
-    "dirlint": "1.0.1",
     "eslint": "8.10.0",
-    "eslint-config-brisk": "1.0.2",
     "husky": "7.0.4",
     "lint-staged": "12.3.4",
     "rimraf": "3.0.2",

@@ -1,13 +1,8 @@
 .DS_Store
 node_modules
-dist
-logs
 
-# local env files
 .env.local
 .env.*.local
-
-package-lock.json
 
 # Log files
 npm-debug.log*
@@ -22,7 +17,16 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+.vscode
 
-
-/lib
-example/package-lock.json
+/.husky
+/.commitlintrc.json
+/.dirlintrc.yml
+/.editorconfig
+/.eslintignore
+/.eslintrc.js
+/.gitignore
+/.lintstagedrc.json
+/src
+/tsconfig.json
+/CHANGELOG.md
