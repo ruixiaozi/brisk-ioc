@@ -117,7 +117,7 @@ export class Core {
    * 获取Bean
    * @param name beanName
    * @param region 域
-   * @returns Core
+   * @returns T
    */
   public getBean<T = any>(name: string, region: Symbol = Core.#defaultSymbol): T | undefined {
     const regionContainer = this.#container.get(region);
@@ -129,6 +129,20 @@ export class Core {
     return value;
   }
 
+  /**
+   * 获取域下所有bean
+   * @param region 域
+   * @returns T
+   */
+  public getBeans<T = any>(region: Symbol = Core.#defaultSymbol): T[] {
+    const regionContainer = this.#container.get(region);
+    const beans = regionContainer ? [...regionContainer.values()] : [];
+    // 原型模式则返回一个副本
+    if (this.#mode === CoreModeEnum.PROTOTYPE && beans.length > 0) {
+      return _cloneDeep(beans);
+    }
+    return beans;
+  }
 
   /**
    * scanPackage 扫描包
