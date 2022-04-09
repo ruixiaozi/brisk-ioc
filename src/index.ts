@@ -4,7 +4,7 @@ import * as path from 'path';
 import { is, configPath as IS_CONFIG_PATH } from 'brisk-ts-extends/is';
 // 配置is扩展的接口json文件
 IS_CONFIG_PATH(path.join(__dirname, './interface.json'));
-import { BriskPlugin, BriskOption } from '@interface';
+import { BriskPlugin, BriskOption, CoreOption } from '@interface';
 import { Core } from '@core';
 // 核心
 export * from '@core';
@@ -42,6 +42,11 @@ class _BriskIoC {
       // 错误的格式
       this.core.logger.error('plugins use err: error plugin class format');
     }
+    return this;
+  }
+
+  public configurate(option: CoreOption): _BriskIoC {
+    this.core.configurate(option);
     return this;
   }
 
