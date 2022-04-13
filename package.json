@@ -1,6 +1,6 @@
 {
   "name": "brisk-ioc",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "fast light brisk ioc/di container on nodejs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -36,7 +36,7 @@
     "bluebird": "3.7.2",
     "lodash": "4.17.21",
     "reflect-metadata": "0.1.13",
-    "brisk-ts-extends": "1.1.0",
+    "brisk-ts-extends": "1.1.1",
     "brisk-log": "1.0.0"
   },
   "engines": {
