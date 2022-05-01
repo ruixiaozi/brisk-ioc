@@ -2,7 +2,7 @@ import { CoreOption, BriskInit } from '@interface';
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { Promise } from 'bluebird';
+import Bluebird from 'bluebird';
 import { cloneDeep as _cloneDeep } from 'lodash';
 import { BriskLog, Logger } from 'brisk-log';
 
@@ -16,8 +16,6 @@ export enum CoreModeEnum{
  * @description
  * @author ruixiaozi
  * @email admin@ruixiaozi.com
- * @date 2022年01月16日 19:40:13
- * @version 3.0.0
  */
 export class Core {
 
@@ -170,9 +168,9 @@ export class Core {
 
   /**
    * 异步初始化
-   * @returns Promise<Core>
+   * @returns Bluebird<Core>
    */
-  public initAsync(): Promise<Core> {
+  public initAsync(): Bluebird<Core> {
     this.logger.info('brisk-ioc initializing');
     // 先加载组件文件
     this.#componentFileList.forEach((file) => {
@@ -186,11 +184,11 @@ export class Core {
     const _that = this;
 
     // 对初始化方法进行异步调用
-    return Promise.each(InitFns, (item) => {
+    return Bluebird.each(InitFns, (item) => {
       // 调用执行
       const fnRes = item.fn();
-      // 使用Promise.resolve保证不论是Promise的方法还是常规方法都得到执行
-      return Promise.resolve(fnRes);
+      // 使用Bluebird.resolve保证不论是Bluebird的方法还是常规方法都得到执行
+      return Bluebird.resolve(fnRes);
     }).then(() => {
       this.logger.info('brisk-ioc initialized');
       return _that;

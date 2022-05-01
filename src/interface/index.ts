@@ -4,3 +4,4 @@ export * from '@interface/option/BeanOption';
 export * from '@interface/option/CoreOption';
 export * from '@interface/option/InitOption';
 export * from '@interface/BriskInit';
+export * from '@interface/BriskPluginInterFace';
