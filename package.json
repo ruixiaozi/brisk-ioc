@@ -1,6 +1,6 @@
 {
   "name": "brisk-ioc",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "fast light brisk ioc/di container on nodejs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -37,7 +37,7 @@
     "lodash": "4.17.21",
     "reflect-metadata": "0.1.13",
     "brisk-ts-extends": "1.1.1",
-    "brisk-log": "1.0.0"
+    "brisk-log": "1.0.1"
   },
   "engines": {
     "node": ">=12",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "dirlint": "1.0.1",
-    "eslint-config-brisk": "1.0.2",
+    "eslint-config-brisk": "1.0.3",
     "@commitlint/cli": "16.2.1",
     "@commitlint/config-conventional": "16.2.1",
     "@types/bluebird": "3.5.36",
