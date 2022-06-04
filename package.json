@@ -1,6 +1,6 @@
 {
   "name": "brisk-ioc",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "fast light brisk ioc/di container on nodejs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -35,18 +35,15 @@
   "dependencies": {
     "bluebird": "3.7.2",
     "lodash": "4.17.21",
-    "reflect-metadata": "0.1.13",
-    "brisk-ts-extends": "1.1.1",
-    "brisk-log": "1.0.1"
+    "reflect-metadata": "0.1.13"
   },
   "engines": {
     "node": ">=12",
     "npm": ">=6"
   },
   "peerDependencies": {
-    "@types/bluebird": ">=3.5.0",
-    "@types/node": "*",
-    "bluebird": ">=3.7.0"
+    "brisk-ts-extends": ">=1.1.2",
+    "brisk-log": ">=1.0.2"
   },
   "devDependencies": {
     "dirlint": "1.0.1",
