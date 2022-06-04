@@ -168,9 +168,9 @@ export class Core {
 
   /**
    * 异步初始化
-   * @returns Bluebird<Core>
+   * @returns Promise<Core>
    */
-  public initAsync(): Bluebird<Core> {
+  public async initAsync(): Promise<Core> {
     this.logger.info('brisk-ioc initializing');
     // 先加载组件文件
     this.#componentFileList.forEach((file) => {
@@ -180,19 +180,16 @@ export class Core {
 
     // 先对初始化生命周期的方法进行优先级排序
     const InitFns = this.#initList.sort((fnA, fnB) => fnA.priority - fnB.priority);
-
-    const _that = this;
-
     // 对初始化方法进行异步调用
-    return Bluebird.each(InitFns, (item) => {
+    await Bluebird.each(InitFns, (item) => {
       // 调用执行
       const fnRes = item.fn();
-      // 使用Bluebird.resolve保证不论是Bluebird的方法还是常规方法都得到执行
+      // Promise.resolve保证不论是Promise的方法还是常规方法都得到执行
       return Bluebird.resolve(fnRes);
-    }).then(() => {
-      this.logger.info('brisk-ioc initialized');
-      return _that;
     });
+
+    this.logger.info('brisk-ioc initialized');
+    return this;
   }
 
 
