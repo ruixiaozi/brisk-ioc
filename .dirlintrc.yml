@@ -1,0 +1,42 @@
+rules:
+  /:
+    /src:
+      /**.ts:
+        - file
+        - camelCaseWithABB
+      /core:
+        - dir
+      /decorator:
+        - dir
+
+# 例外，支持中间用*匹配任意字符，**匹配任意路径
+exceptions:
+  - /.husky
+  - /.vscode
+  - /.yalc
+  - /lib
+  - /example
+  - /node_modules
+  - /.commitlintrc.json
+  - /.dirlintrc.yml
+  - /.editorconfig
+  - /.npmignore
+  - /.eslintignore
+  - /.eslintrc.js
+  - /.git
+  - /.gitignore
+  - /.lintstagedrc.json
+  - /LICENSE
+  - /package-lock.json
+  - /package.json
+  - /README.md
+  - /CHANGELOG.md
+  - /tsconfig.json
+  - /tsconfig.test.json
+  - /.nvmrc
+  - /jest.config.ts
+  - /test
+  - /coverage
+  - /logs
+  - /yalc.lock
+

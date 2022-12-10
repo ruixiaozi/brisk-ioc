@@ -1,0 +1,3 @@
+{
+  "**/*.ts": ["eslint --ext .ts", "npm run test:staged"]
+}

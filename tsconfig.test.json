@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2021", // require node >= 12
+    "module": "CommonJS",
+    "declaration": true,
+    "outDir": "lib",
+    "strict": true,
+    "esModuleInterop": true,
+    "pretty": true,
+    "experimentalDecorators": true,
+    "plugins": [
+      {
+        "transform": "brisk-ts-extends/transformer"
+      },
+    ]
+  },
+}

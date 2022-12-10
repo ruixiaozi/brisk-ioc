@@ -1,0 +1,6 @@
+lib/**
+node_modules/**
+.vscode/**
+example/**
+.husky/**
+test/**
