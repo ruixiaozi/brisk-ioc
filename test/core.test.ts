@@ -41,4 +41,37 @@ describe('core', () => {
     expect(bean1).not.toBe(bean2);
   });
 
+  // setBean 应该设定指定的实例，当传入实例时
+  test('setBean Should set the instance When use target param', () => {
+    configure({
+      model: BRISK_IOC_MODEL_E.SINGLETION
+    });
+    class Test4 {
+      name = 'test4';
+    }
+    const instance = new Test4();
+    instance.name = '111';
+    setBean(Test4, instance);
+    const bean1 = getBean(Test4);
+    const bean2 = getBean(Test4);
+    expect(bean1).toBe(bean2);
+    expect(bean1?.name).toBe('111');
+  });
+
+  // setBean 应该设定指定类名和指定的实例，当传入类名和实例时
+  test('setBean Should set the class name and instance When use class name param and target param', () => {
+    configure({
+      model: BRISK_IOC_MODEL_E.SINGLETION
+    });
+    class Test5 {
+      name = 'test5';
+    }
+    const instance = new Test5();
+    instance.name = '111';
+    setBean('Test5', instance);
+    const bean1 = getBean(Test5);
+    const bean2 = getBean(Test5);
+    expect(bean1).toBe(bean2);
+    expect(bean1?.name).toBe('111');
+  });
 });

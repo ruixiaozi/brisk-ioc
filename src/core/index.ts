@@ -48,6 +48,7 @@ export function configure(option: BriskIoCOption) {
   if (option.model) {
     _model = option.model;
   }
+  logger.debug('configure', option);
 }
 
 function scanBeanDFS(files: string[]) {
@@ -59,19 +60,22 @@ function scanBeanDFS(files: string[]) {
       } else {
         // 引入文件，加载装饰器
         require(file);
+        logger.debug(`scanBean: ${file}`);
       }
     } catch (error) {
-      logger.error(`scanBean error:${error}`);
+      logger.error('scanBean error', error);
     }
   }
 }
 
 
 export async function scanBean() {
+  logger.debug('scanBean before');
   for (let beforeHook of hooks.beforeScan) {
     await Promise.resolve(beforeHook.fn());
   }
   scanBeanDFS(_beanPathes);
+  logger.debug('scanBean after');
   for (let afterHook of hooks.afterScan) {
     await Promise.resolve(afterHook.fn());
   }
@@ -87,6 +91,7 @@ export function onBeforeScan(cbk: Function, priority = 10) {
     priority,
   });
   hooks.beforeScan.sort(sortHooks);
+  logger.debug('before scans', hooks.beforeScan);
 }
 
 export function onAfterScan(cbk: Function, priority = 10) {
@@ -94,26 +99,35 @@ export function onAfterScan(cbk: Function, priority = 10) {
     fn: cbk,
     priority,
   });
-  hooks.beforeScan.sort(sortHooks);
+  hooks.afterScan.sort(sortHooks);
+  logger.debug('after scans', hooks.afterScan);
 }
 
 // 配置一个bean
-export function setBean(TargetClass: Class, region: Symbol = defaultRegion) {
+export function setBean(tragetClassName: string, target: any, region?: Symbol): void;
+export function setBean(TargetClass: Class, target?: any, region?: Symbol): void;
+export function setBean(Target: Class | string, target?: any, region: Symbol = defaultRegion) {
   let regionContainer = container.get(region);
   let regionContructorContainer = constructorContainer.get(region);
   if (!regionContainer) {
     regionContainer = new Map<string, any>();
     container.set(region, regionContainer);
+    logger.debug('container region is not exist, create success!');
   }
   if (!regionContructorContainer) {
     regionContructorContainer = new Map<string, Class>();
     constructorContainer.set(region, regionContructorContainer);
+    logger.debug('constructorContainer region is not exist, create success!');
   }
-  regionContructorContainer.set(TargetClass.name, TargetClass);
-  if (regionContainer.has(TargetClass.name)) {
+  const name = typeof Target === 'string' ? Target : Target.name;
+  if (typeof Target !== 'string') {
+    regionContructorContainer.set(name, Target);
+  }
+  if (regionContainer.has(name)) {
+    logger.warn('bean is exist!');
     return;
   }
-  regionContainer.set(TargetClass.name, new TargetClass());
+  regionContainer.set(name, target || (typeof Target === 'string' ? undefined : new Target()));
 }
 
 export function getBean<T>(tragetClassName: string, region?: Symbol): T | undefined;
@@ -124,6 +138,7 @@ export function getBean<T>(Target: Class<T> | string, region: Symbol = defaultRe
   if (_model === BRISK_IOC_MODEL_E.PROTOTYPE) {
     let regionContructorContainer = constructorContainer.get(region);
     if (!regionContructorContainer || !regionContructorContainer.has(targetName)) {
+      logger.warn('instance cant get, constructorContainer region or targetConstructor is not exist!');
       return undefined;
     }
     const TargetCls = regionContructorContainer.get(targetName)!;
@@ -132,6 +147,7 @@ export function getBean<T>(Target: Class<T> | string, region: Symbol = defaultRe
 
   let regionContainer = container.get(region);
   if (!regionContainer || !regionContainer.has(targetName)) {
+    logger.warn('instance cant get, container region or target is not exist!');
     return undefined;
   }
 

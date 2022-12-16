@@ -45,7 +45,7 @@ export function OnAfterScan(scanOption?: BriskIoCHookOption): Function {
 export function Bean(beanOption?: BriskIoCBeanOption): Function {
   return new DecoratorFactory()
     .setClassCallback((Target) => {
-      setBean(Target, beanOption?.region);
+      setBean(Target, undefined, beanOption?.region);
     })
     .getDecorator();
 }
@@ -81,7 +81,7 @@ export function AutoWrite(beanOption?: BriskIoCBeanOption): Function {
 export function Service(beanOption?: BriskIoCBeanOption): Function {
   return new DecoratorFactory()
     .setClassCallback((Target) => {
-      setBean(Target, beanOption?.region);
+      setBean(Target, undefined, beanOption?.region);
     })
     .getDecorator();
 }
