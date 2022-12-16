@@ -106,7 +106,9 @@ export function onAfterScan(cbk: Function, priority = 10) {
 // 配置一个bean
 export function setBean(tragetClassName: string, target: any, region?: Symbol): void;
 export function setBean(TargetClass: Class, target?: any, region?: Symbol): void;
-export function setBean(Target: Class | string, target?: any, region: Symbol = defaultRegion) {
+// customName 自定义类名
+export function setBean(TargetClass: Class, target?: any, region?: Symbol, customName?: string): void;
+export function setBean(Target: Class | string, target?: any, region: Symbol = defaultRegion, customName?: string) {
   let regionContainer = container.get(region);
   let regionContructorContainer = constructorContainer.get(region);
   if (!regionContainer) {
@@ -119,7 +121,7 @@ export function setBean(Target: Class | string, target?: any, region: Symbol = d
     constructorContainer.set(region, regionContructorContainer);
     logger.debug('constructorContainer region is not exist, create success!');
   }
-  const name = typeof Target === 'string' ? Target : Target.name;
+  const name = typeof Target === 'string' ? Target : (customName || Target.name);
   if (typeof Target !== 'string') {
     regionContructorContainer.set(name, Target);
   }

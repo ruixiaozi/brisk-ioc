@@ -74,4 +74,21 @@ describe('core', () => {
     expect(bean1).toBe(bean2);
     expect(bean1?.name).toBe('111');
   });
+
+  // setBean 应该设定指定的实例和自定义类名，当传入实例和自定义名称时
+  test('setBean Should set the instance and custom class name When use target param and custom name param', () => {
+    configure({
+      model: BRISK_IOC_MODEL_E.SINGLETION
+    });
+    class Test6 {
+      name = 'test6';
+    }
+    const instance = new Test6();
+    instance.name = '111';
+    setBean(Test6, instance, undefined, 'Test61');
+    const bean1 = getBean<Test6>('Test61');
+    const bean2 = getBean<Test6>('Test61');
+    expect(bean1).toBe(bean2);
+    expect(bean1?.name).toBe('111');
+  });
 });
