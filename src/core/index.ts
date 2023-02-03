@@ -57,7 +57,7 @@ function scanBeanDFS(files: string[]) {
       if (fs.statSync(file).isDirectory()) {
         const subFiles = fs.readdirSync(file);
         scanBeanDFS(subFiles.map((item) => path.join(file, item)));
-      } else {
+      } else if ((file.endsWith('.ts') || file.endsWith('.js')) && !file.endsWith('d.ts')) {
         // 引入文件，加载装饰器
         require(file);
         logger.debug(`scanBean: ${file}`);
