@@ -126,8 +126,7 @@ export function setBean(Target: Class | string, target?: any, region: Symbol = d
     regionContructorContainer.set(name, Target);
   }
   if (regionContainer.has(name)) {
-    logger.warn('bean is exist!');
-    return;
+    logger.warn(`bean(${name}) is exist, it will be cover!`);
   }
   regionContainer.set(name, target || (typeof Target === 'string' ? undefined : new Target()));
 }
