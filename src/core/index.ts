@@ -114,21 +114,23 @@ export function setBean(Target: Class | string, target?: any, region: Symbol = d
   if (!regionContainer) {
     regionContainer = new Map<string, any>();
     container.set(region, regionContainer);
-    logger.debug('container region is not exist, create success!');
+    logger.debug(`container region(${region.toString()}) is not exist, create success!`);
   }
   if (!regionContructorContainer) {
     regionContructorContainer = new Map<string, Class>();
     constructorContainer.set(region, regionContructorContainer);
-    logger.debug('constructorContainer region is not exist, create success!');
+    logger.debug(`constructorContainer region(${region.toString()}) is not exist, create success!`);
   }
   const name = typeof Target === 'string' ? Target : (customName || Target.name);
   if (typeof Target !== 'string') {
     regionContructorContainer.set(name, Target);
+    logger.debug(`set constructor(${name}) to region(${region.toString()})`);
   }
   if (regionContainer.has(name)) {
     logger.warn(`bean(${name}) is exist, it will be cover!`);
   }
   regionContainer.set(name, target || (typeof Target === 'string' ? undefined : new Target()));
+  logger.debug(`set bean(${name}) to region(${region.toString()})`);
 }
 
 export function getBean<T>(tragetClassName: string, region?: Symbol): T | undefined;
@@ -138,8 +140,12 @@ export function getBean<T>(Target: Class<T> | string, region: Symbol = defaultRe
   // 原型模式返回一个新对象
   if (_model === BRISK_IOC_MODEL_E.PROTOTYPE) {
     let regionContructorContainer = constructorContainer.get(region);
-    if (!regionContructorContainer || !regionContructorContainer.has(targetName)) {
-      logger.warn('instance cant get, constructorContainer region or targetConstructor is not exist!');
+    if (!regionContructorContainer) {
+      logger.warn(`instance cant get, constructorContainer region(${region.toString()}) is not exist!`);
+      return undefined;
+    }
+    if (!regionContructorContainer.has(targetName)) {
+      logger.warn(`instance cant get, targetConstructor(${targetName}) is not exist!`);
       return undefined;
     }
     const TargetCls = regionContructorContainer.get(targetName)!;
@@ -147,8 +153,12 @@ export function getBean<T>(Target: Class<T> | string, region: Symbol = defaultRe
   }
 
   let regionContainer = container.get(region);
-  if (!regionContainer || !regionContainer.has(targetName)) {
-    logger.warn('instance cant get, container region or target is not exist!');
+  if (!regionContainer) {
+    logger.warn(`instance cant get, container region(${region.toString()}) is not exist!`);
+    return undefined;
+  }
+  if (!regionContainer.has(targetName)) {
+    logger.warn(`instance cant get, target(${targetName}) is not exist!`);
     return undefined;
   }
 
