@@ -1,6 +1,6 @@
 {
   "name": "brisk-ioc",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "fast light brisk ioc/di container on nodejs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -34,8 +34,8 @@
   },
   "homepage": "https://github.com/ruixiaozi/brisk-ioc#readme",
   "dependencies": {
-    "brisk-log": "0.0.6",
-    "brisk-ts-extends": "0.0.6"
+    "brisk-log": "0.0.7",
+    "brisk-ts-extends": "0.0.7"
   },
   "engines": {
     "node": ">=12",
@@ -61,6 +61,6 @@
     "typescript": "4.8"
   },
   "overrides": {
-    "@jest/expect-utils":"29.4.1"
+    "@jest/expect-utils": "29.4.1"
   }
 }
